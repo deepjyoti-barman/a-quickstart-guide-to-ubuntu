@@ -1,5 +1,25 @@
 # A Quickstart Guide to Ubuntu
 
+## Table of Contents
+
+- [A Quickstart Guide to Ubuntu](#a-quickstart-guide-to-ubuntu)
+  - [Applications](#applications)
+    - [1. Google Chrome](#1-google-chrome)
+    - [2. Visual Studio Code](#2-visual-studio-code)
+    - [3. Brave](#3-brave)
+    - [4. Sublime Text](#4-sublime-text)
+    - [5. Zoom](#5-zoom)
+    - [6. Kindle PWA](#6-kindle-pwa)
+    - [7. Microsoft Teams PWA](#7-microsoft-teams-pwa)
+    - [8. ChatGPT](#8-chatgpt)
+    - [9. JetBrains Toolkit](#9-jetbrains-toolbox)
+    - [10. JetBrains IDEs](#10-jetbrains-ides)
+      - [Install WebStorm](#install-webstorm)
+      - [Install IntelliJ IDEA](#install-intellij-idea)
+      - [Install PyCharm](#install-pycharm)
+      - [Install Android Studio](#install-android-studio)
+    - [11. Android Studio Configuration](#11-android-studio-configuration)
+
 ## Applications
 
 ### 1. Google Chrome
