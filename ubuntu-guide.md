@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [A Quickstart Guide to Ubuntu](#a-quickstart-guide-to-ubuntu)
+  - [Table of Contents](#table-of-contents)
   - [Applications](#applications)
     - [1. Google Chrome](#1-google-chrome)
     - [2. Visual Studio Code](#2-visual-studio-code)
