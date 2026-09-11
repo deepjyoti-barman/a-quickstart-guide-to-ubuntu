@@ -4,6 +4,8 @@
 
 - [A Quickstart Guide to Ubuntu](#a-quickstart-guide-to-ubuntu)
   - [Table of Contents](#table-of-contents)
+  - [Set Up Ubuntu, Resolve Issues and Tweaks](#set-up-ubuntu-resolve-issues-and-tweaks)
+    - [Install the Perfect Terminal Font: MesloLGS NF](#install-the-perfect-terminal-font-meslolgs-nf)
   - [Applications](#applications)
     - [1. Google Chrome](#1-google-chrome)
     - [2. Visual Studio Code](#2-visual-studio-code)
@@ -20,6 +22,95 @@
       - [Install PyCharm](#install-pycharm)
       - [Install Android Studio](#install-android-studio)
     - [11. Android Studio Configuration](#11-android-studio-configuration)
+  - [Zsh Environment & Shell Configuration](#zsh-environment--shell-configuration)
+    - [File: `~/.zshenv`](#file-zshenv)
+    - [File: `~/.zshrc`](#file-zshrc)
+    - [File: `~/aliases.zsh`](#file-aliaseszsh)
+  - [Tools and Utilities](#tools-and-utilities)
+    - [git](#git-git)
+    - [bat](#bat-batcat)
+    - [tree](#tree-tree)
+    - [zip](#zip-zip)
+    - [unzip](#unzip-unzip)
+    - [curl](#curl-curl)
+    - [Ghostty Terminal](#ghostty-terminal-ghostty)
+    - [micro](#micro-micro)
+    - [wl-clipboard](#wl-clipboard-wl-copy-wl-paste)
+    - [zsh](#zsh-zsh)
+    - [oh-my-zsh](#oh-my-zsh-omz)
+    - [Powerlevel10k](#powerlevel10k-p10k)
+    - [SDKMan](#sdkman-sdk)
+    - [Java](#java-java)
+    - [Gradle](#gradle-gradle)
+    - [Maven](#maven-mvn)
+    - [JMeter](#jmeter-jmeter)
+    - [AQL](#aql-aql)
+    - [NVM](#nvm-nvm)
+
+## Set Up Ubuntu, Resolve Issues and Tweaks
+
+### Install the Perfect Terminal Font: MesloLGS NF
+
+#### MesloLGS NF: Overview
+
+MesloLGS NF is a Nerd Font commonly used with Powerlevel10k. It includes the special icons needed by rich terminal prompts.
+
+#### MesloLGS NF: Why it's useful
+
+- Makes Powerlevel10k icons display correctly.
+- Prevents missing-symbol boxes in your terminal prompt.
+- Works well with Ghostty and other modern terminal emulators.
+
+#### MesloLGS NF: Installation and Verification Commands
+
+Create your user font directory:
+
+```sh
+mkdir -p ~/.local/share/fonts
+```
+
+Download the MesloLGS NF font files:
+
+```sh
+cd ~/.local/share/fonts
+
+curl -LO "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+curl -LO "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+curl -LO "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+curl -LO "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+```
+
+Refresh the font cache:
+
+```sh
+fc-cache -fv
+```
+
+Verify the installation:
+
+```sh
+fc-list | grep -i "MesloLGS"
+fc-match "MesloLGS NF"
+```
+
+#### MesloLGS NF: Simple Examples
+
+```sh
+# Checks whether MesloLGS is installed
+fc-list | grep -i "MesloLGS"
+
+# Shows the font file that matches this font name
+fc-match "MesloLGS NF"
+
+# Refreshes the font cache after installing fonts
+fc-cache -fv
+```
+
+#### MesloLGS NF: Important Concepts
+
+- `Nerd Font`: A font patched with extra icons for terminal prompts.
+- `User font folder`: `~/.local/share/fonts` installs fonts only for your user account.
+- `Terminal font setting`: After installation, set your terminal font to `MesloLGS NF` in the terminal configuration.
 
 ## Applications
 
@@ -715,3 +806,1644 @@ To enable Command Line Tools in Android Studio perform the following steps:
   ```bash
   adb shell dumpsys window | grep -E 'CurrentFocus|FocusedApp'
   ```
+
+## Zsh Environment & Shell Configuration
+
+### File: `~/.zshenv`
+
+```zsh
+# =========================================================
+# Shell Startup
+# =========================================================
+
+# Skip global compinit initialization for faster shell startup
+skip_global_compinit=1
+
+# =========================================================
+# XDG base directories
+# =========================================================
+
+# Use standard locations for user-specific config, cache, data, and state.
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+
+# =========================================================
+# Pager Colorization
+# =========================================================
+
+# This shell snippet configures man to use bat (or Debian/Ubuntu’s batcat) as its pager,
+# giving man pages syntax highlighting and cleaner formatting.
+if command -v bat >/dev/null 2>&1; then
+  export MANPAGER="col -bx | bat -l man -p"
+elif command -v batcat >/dev/null 2>&1; then
+  export MANPAGER="col -bx | batcat -l man -p"
+fi
+
+# =========================================================
+# Default Editor
+# =========================================================
+
+# Sets Neovim as the default editor for CLI tools like git, crontab etc.
+# VISUAL generally indicates your preferred full-screen/interactive editor,
+# while EDITOR is the more general fallback.
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+fi
+
+# =========================================================
+# Android Studio
+# =========================================================
+
+export ANDROID_HOME=$HOME/Android/Sdk
+
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+# =========================================================
+# SDKMan Default Exports
+# =========================================================
+# export GRADLE_HOME=$HOME/.sdkman/candidates/gradle/current
+# export JAVA_HOME=$HOME/.sdkman/candidates/java/current
+# export JMETER_HOME=$HOME/.sdkman/candidates/jmeter/current
+# export MAVEN_HOME=$HOME/.sdkman/candidates/maven/current
+
+# =========================================================
+# XAMPP
+# =========================================================
+
+export PATH=$PATH:/opt/lampp/bin
+```
+
+### File: `~/.zshrc`
+
+```zsh
+# =========================================================
+# Powerlevel10k
+# =========================================================
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# =========================================================
+# Oh-my-zsh Theme
+# =========================================================
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# =========================================================
+# Oh-my-zsh Plugins
+# =========================================================
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+    docker
+    docker-compose
+    extract
+    fast-syntax-highlighting
+    git
+    sublime
+    web-search
+    z
+    zsh-autocomplete
+    zsh-autosuggestions
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# =========================================================
+# Config to Auto-load Tools on Startup
+# =========================================================
+
+# Plugin configuration | Package: powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Path configuration | Package: sdkman
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Path configuration | Package: pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+
+# Path configuration | Package: nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Path configuration | Package: Zed
+export PATH=$HOME/.local/bin:$PATH
+
+# Path configuration | Package: deno
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+. "/home/deepjyoti/.deno/env"
+
+# Path configuration | Package: gonb
+export PATH="$HOME/go/bin:$PATH"
+export JUPYTER_PATH="$HOME/.local/share/jupyter${JUPYTER_PATH:+:$JUPYTER_PATH}"
+
+# =========================================================
+# History
+# =========================================================
+
+# Keeps a persistent, shared zsh history while avoiding common duplicates.
+mkdir -p "$XDG_STATE_HOME/zsh"
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
+# =========================================================
+# Modular Config Files
+# =========================================================
+
+# Aliases
+source "$HOME/aliases.zsh"
+```
+
+### File: `~/aliases.zsh`
+
+```zsh
+# =========================================================
+# CLI tools
+# =========================================================
+
+# Better ls
+alias ls='eza --icons=auto'
+
+# Detailed listing
+alias ll='eza -lh --icons=auto --git'
+
+# Detailed listing including hidden files
+alias la='eza -lah --icons=auto --git'
+
+# Tree view
+alias tree='eza --tree --icons=auto'
+
+# Reuse ls completions for eza (avoids defining a separate completion function)
+compdef eza=ls
+
+# Better cat
+# alias cat='bat'
+
+# =========================================================
+# Core utilities
+# =========================================================
+
+alias grep='rg --color=auto'
+alias diff='diff --color=auto'
+alias df='df -h'
+alias find='fdfind'
+alias f='fdfind'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias bat='batcat'
+
+# =========================================================
+# Navigation
+# =========================================================
+
+# Jump back to the previous directory with `-`
+# -- prevents - being parsed as a flag
+alias -- -='cd -'
+
+# Launch lf and follow its last visited directory when you quit.
+lf() {
+    tmp=$(mktemp)
+    command lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir=$(cat "$tmp")
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+# =========================================================
+# Editor
+# =========================================================
+
+# alias vim='nvim'
+```
+
+Finally one should execute the following commands to make all of them sync and work:
+
+```zsh
+source .zshenv
+source .zshrc
+```
+
+## Tools and Utilities
+
+### git (`git`)
+
+#### git: Overview
+
+`git` is a version control tool used to track changes in files and projects over time. It is most commonly used for code, but it can track almost any text-based files.
+
+#### git: Why it's useful
+
+- Keeps a history of your work so you can go back if needed.
+- Helps you see exactly what changed.
+- Makes collaboration easier through GitHub, GitLab, Bitbucket, and similar services.
+- Replaces manually copying folders like `project-final-v2`.
+
+#### git: Installation and Verification Commands
+
+```sh
+sudo apt install git
+git --version
+```
+
+#### git: Simple Examples
+
+```sh
+# Creates a new Git repository in the current folder
+git init
+
+# Shows which files have changed
+git status
+
+# Stages all changed files for the next commit
+git add .
+
+# Saves the staged changes as a commit
+git commit -m "Initial commit"
+
+# Shows commit history in a compact format
+git log --oneline
+```
+
+#### git: Essential keystrokes
+
+`git` is a non-interactive command-line utility, though some commands may open a text editor.
+
+#### git: Important Concepts
+
+- `Repository`: A folder being tracked by Git.
+- `Commit`: A saved snapshot of changes.
+- `Staging`: Choosing which changes will go into the next commit.
+- `Remote`: A copy of the repository hosted somewhere else, such as GitHub.
+
+---
+
+### bat (`batcat`)
+
+#### bat: Overview
+
+`bat` is a modern replacement for `cat`. It displays file contents with syntax highlighting, line numbers, and nicer formatting.
+
+#### bat: Why it's useful
+
+- Makes files easier to read in the terminal.
+- Improves on `cat` by adding colors and line numbers.
+- Useful for quickly viewing code, config files, and notes.
+- On Ubuntu, the command is usually named `batcat`.
+
+#### bat: Installation and Verification Commands
+
+```sh
+sudo apt install bat
+batcat --version
+```
+
+#### bat: Simple Examples
+
+```sh
+# Displays `file.txt` with formatting
+batcat file.txt
+
+# Displays a code file with syntax highlighting.
+batcat script.py
+
+# Displays the file with line numbers
+batcat -n file.txt
+
+# Uses plain output, closer to normal `cat`
+batcat -p file.txt
+```
+
+#### bat: Essential Keystrokes
+
+If output opens in a pager:
+
+| KeyAction |                    |
+| --------- | ------------------ |
+| `q`       | Quit               |
+| `Space`   | Move down one page |
+| `b`       | Move up one page   |
+| `/text`   | Search for `text`  |
+
+#### bat: Important concepts
+
+`batcat` vs `bat`: On Ubuntu/Debian, the executable is often called `batcat`.
+
+Useful alias:
+
+```sh
+alias bat='batcat'
+```
+
+Relationship to `cat`: Use `cat` for raw output; use `batcat` when you want readable output.
+
+---
+
+### tree (`tree`)
+
+#### tree: Overview
+
+`tree` displays folders and files in a visual tree structure.
+
+#### tree: Why it's useful
+
+- Helps you understand a folder or project layout quickly.
+- Is easier to read than running many `ls` commands.
+- Useful for documenting directory structures.
+- Improves on `ls` when you need to see nested folders.
+
+#### tree: Installation and Verification Commands
+
+```sh
+sudo apt install tree
+tree --version
+```
+
+#### tree: Simple Examples
+
+```sh
+# Shows the directory tree from the current folder
+tree
+
+# Shows only two levels of folders and files
+tree -L 2
+
+# Includes hidden files and folders
+tree -a
+
+# Shows directories only
+tree -d
+```
+
+#### tree: Essential Keystrokes
+
+`tree` is non-interactive, so it has no essential keystrokes.
+
+#### tree: Important Concepts
+
+- `Depth`: `-L 2` limits output depth and prevents very large trees.
+- `Hidden files`: `-a` includes files such as `.gitignore`.
+- `Directories only`: `-d` displays only the folder structure.
+- `tree` vs `ls`: `ls` lists one directory; `tree` displays nested directories.
+
+---
+
+### zip (`zip`)
+
+#### zip: Overview
+
+`zip` creates `.zip` archive files from files and folders.
+
+#### zip: Why it's useful
+
+- Combines multiple files into one archive.
+- Uses a common format that works across Linux, macOS, and Windows.
+- Useful for backups, sharing, uploads, and packaging files.
+
+#### zip: Installation and Verification Commands
+
+```sh
+sudo apt install zip unzip
+zip --version
+```
+
+#### zip: Simple Examples
+
+```sh
+# Creates a ZIP archive containing file.txt
+zip archive.zip file.txt
+
+# Creates a ZIP archive containing multiple files
+zip archive.zip file1.txt file2.txt
+
+# Creates a ZIP archive from the project/ folder recursively
+zip -r project.zip project/
+
+# Creates a ZIP archive while excluding the node_modules folder
+zip -r project.zip project/ -x "project/node_modules/*"
+```
+
+#### zip: Essential Keystrokes
+
+`zip` is non-interactive, so it has no essential keystrokes.
+
+#### zip: Important Concepts
+
+- `Recursive folders`: Use `-r` to include a directory and everything inside it.
+- `Archive name first`: Use the format `zip archive.zip file.txt`.
+- `Exclude files`: Use `-x` to leave out large or unnecessary files and folders.
+
+---
+
+### unzip (`unzip`)
+
+#### unzip: Overview
+
+`unzip` extracts files from `.zip` archives.
+
+#### unzip: Why it's useful
+
+- Opens ZIP files from downloads, emails, and shared folders.
+- Lets you inspect archive contents before extracting.
+- Works together with `zip`.
+
+#### unzip: Installation and Verification Commands
+
+```sh
+sudo apt install unzip
+unzip --version
+```
+
+#### unzip: Simple Examples
+
+```sh
+# Extracts archive.zip into the current folder
+unzip archive.zip
+
+# Extracts archive.zip into the extracted/ folder
+unzip archive.zip -d extracted/
+
+# Lists files in the archive without extracting them
+unzip -l archive.zip
+
+# Extracts files without overwriting existing files
+unzip -n archive.zip
+```
+
+#### unzip: Essential Keystrokes
+
+`unzip` is non-interactive, but it may ask before overwriting existing files.
+
+#### unzip: Important Concepts
+
+- `Destination folder`: Use `-d` to choose where files are extracted.
+- `Preview first`: Use `unzip -l archive.zip` to inspect an unknown archive before extracting it.
+- `Overwrite behavior`: Use `-n` to avoid overwriting existing files.
+
+---
+
+### curl (`curl`)
+
+#### curl: Overview
+
+`curl` transfers data to or from URLs. It is commonly used to download files, check websites, and test APIs.
+
+#### curl: Why it's useful
+
+- Downloads files directly from the terminal.
+- Checks web responses without opening a browser.
+- Useful for testing APIs.
+- More flexible than `wget` for custom HTTP requests.
+
+#### curl: Installation and Verification Commands
+
+```sh
+sudo apt install curl
+curl --version
+```
+
+#### curl: Simple Examples
+
+```sh
+# Prints the response from a URL
+curl https://example.com
+
+# Shows only the response headers
+curl -I https://example.com
+
+# Downloads a file using its original filename
+curl -O https://example.com/file.zip
+
+# Follows redirects and downloads the file
+curl -L -O https://example.com/file.zip
+```
+
+#### curl: Essential Keystrokes
+
+`curl` is non-interactive, so it has no essential keystrokes.
+
+#### curl: Important Concepts
+
+- `Headers`: Use `-I` to show response metadata, such as the status code and content type.
+- `Redirects`: Use `-L` to follow redirects.
+- `Output files`: Use `-O` to save a download using its remote filename.
+- `curl` vs `wget`: `wget` is simple for downloads; `curl` is more flexible for web and API requests.
+
+---
+
+### Ghostty Terminal (`ghostty`)
+
+#### Ghostty Terminal: Overview
+
+Ghostty is a modern terminal emulator. It is the app window where you run shells such as `bash` or `zsh`, along with command-line tools such as `git`, `curl`, and `micro`.
+
+#### Ghostty Terminal: Why it's useful
+
+- Provides a fast, modern terminal experience.
+- Supports themes, custom fonts, transparency, tabs, and splits.
+- Is a good choice for an iTerm2-style terminal setup on Ubuntu.
+- Can replace or complement terminals such as GNOME Terminal, Konsole, Alacritty, and Kitty.
+
+#### Ghostty Terminal: Installation and Verification Commands
+
+```sh
+sudo apt install ghostty
+ghostty --version
+```
+
+#### Ghostty Terminal: Simple Examples
+
+```sh
+# Opens Ghostty
+ghostty
+
+# Shows available command-line options
+ghostty --help
+
+# Shows the active configuration
+ghostty +show-config
+
+# Checks whether the configuration is valid
+ghostty +validate-config
+```
+
+#### Ghostty Terminal: Essential Keystrokes
+
+| Key                | Action                          |
+| ------------------ | ------------------------------- |
+| `Ctrl + ,`         | Open configuration              |
+| `Ctrl + Shift + ,` | Reload configuration            |
+| `Ctrl + Shift + C` | Copy                            |
+| `Ctrl + Shift + V` | Paste                           |
+| `Ctrl + Shift + T` | Open a new tab                  |
+| `Ctrl + Shift + W` | Close the current tab or window |
+
+#### Ghostty Terminal: Important Concepts
+
+- `Terminal vs shell`: Ghostty is the terminal application; `zsh` or `bash` is the shell running inside it.
+- `Configuration`: Ghostty uses a plain-text configuration file.
+- `Theme and font`: These settings control how the terminal looks.
+- `Transparency`: `background-opacity` controls how see-through the terminal background is.
+
+#### Ghostty Terminal: Configuration
+
+```conf
+# =========================
+# iTerm2-style Ghostty — Ubuntu
+# =========================
+
+# Theme
+theme = Vercel
+#theme = iTerm2 Default
+
+# Font
+font-family = MesloLGS NF
+font-size = 11.5
+
+# Transparency
+background-opacity = 0.82
+background-blur = true
+background-opacity-cells = true
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-color = #FFFFFF
+shell-integration = none
+
+# Selection
+selection-background = #4A4A4A
+selection-foreground = #FFFFFF
+
+# Window padding
+window-padding-x = 14
+window-padding-y = 12
+
+# Window size
+window-width = 140
+window-height = 43
+
+# Inactive splits
+unfocused-split-opacity = 0.75
+```
+
+---
+
+### micro (`micro`)
+
+#### micro: Overview
+
+`micro` is a beginner-friendly text editor that runs in the terminal.
+
+#### micro: Why it's useful
+
+- Easier for beginners than `vim`.
+- Uses familiar shortcuts for saving, quitting, copying, and pasting.
+- Useful for editing configuration files, notes, scripts, and small code files.
+- A practical upgrade from very basic terminal editing.
+
+#### micro: Installation and Verification Commands
+
+```sh
+sudo apt install micro
+micro --version
+```
+
+#### micro: Simple Examples
+
+```sh
+# Opens or creates file.txt
+micro file.txt
+
+# Edits your Zsh configuration file
+micro ~/.zshrc
+
+# Edits a system file with administrator permissions
+sudo micro /etc/hosts
+
+# Opens file.txt at line 20
+micro +20 file.txt
+```
+
+#### micro: Essential Keystrokes
+
+| Key        | Action     |
+| ---------- | ---------- |
+| `Ctrl + S` | Save       |
+| `Ctrl + Q` | Quit       |
+| `Ctrl + F` | Search     |
+| `Ctrl + G` | Go to line |
+| `Ctrl + C` | Copy       |
+| `Ctrl + X` | Cut        |
+| `Ctrl + V` | Paste      |
+| `Ctrl + Z` | Undo       |
+
+#### micro: Important Concepts
+
+- `Terminal editor`: `micro` runs inside your terminal.
+- `Save and quit`: Use `Ctrl + S` to save, then `Ctrl + Q` to quit.
+- `Config files`: `micro` is convenient for files such as `~/.zshrc` and `~/.gitconfig`.
+
+---
+
+### wl-clipboard (`wl-copy`, `wl-paste`)
+
+#### wl-clipboard: Overview
+
+`wl-clipboard` provides clipboard commands for Wayland sessions. It includes `wl-copy` and `wl-paste`.
+
+#### wl-clipboard: Why it's useful
+
+- Lets terminal commands use your desktop clipboard.
+- Useful for copying command output, paths, logs, and file contents.
+- Replaces X11 clipboard tools such as `xclip` when you use Wayland.
+
+#### wl-clipboard: Installation and Verification Commands
+
+Check whether your session uses X11 or Wayland:
+
+```sh
+echo $XDG_SESSION_TYPE
+```
+
+If it shows `x11`, use `xclip`. If it shows `wayland`, use `wl-clipboard`.
+
+```sh
+sudo apt install wl-clipboard
+echo "Hello" | wl-copy
+wl-paste
+```
+
+#### wl-clipboard: Simple Examples
+
+```sh
+# Copies Hello to the clipboard
+echo "Hello" | wl-copy
+
+# Prints the current clipboard contents
+wl-paste
+
+# Copies the contents of file.txt
+cat file.txt | wl-copy
+
+# Copies the current directory path
+pwd | wl-copy
+```
+
+#### wl-clipboard: Essential Keystrokes
+
+`wl-clipboard` is non-interactive, so it has no essential keystrokes.
+
+#### wl-clipboard: Important Concepts
+
+- `Wayland vs X11`: Use `wl-clipboard` on Wayland and `xclip` on X11.
+- `Piping`: Anything sent into `wl-copy` is copied to the clipboard.
+- `Desktop clipboard`: `wl-copy` and `wl-paste` use your normal system clipboard.
+
+---
+
+### zsh (`zsh`)
+
+#### zsh: Overview
+
+`zsh` is a Unix shell. Like `bash`, it runs commands, scripts, aliases, and terminal workflows.
+
+#### zsh: Why it's useful
+
+- More customizable than a default `bash` setup.
+- Includes powerful autocomplete and command-history features.
+- Works well with prompt tools and frameworks such as Oh My Zsh, Starship, and Powerlevel10k.
+- Useful as a modern everyday shell.
+
+#### zsh: Installation and Verification Commands
+
+```sh
+sudo apt install zsh
+zsh --version
+```
+
+To make Zsh your default login shell:
+
+```sh
+chsh -s "$(which zsh)"
+```
+
+Verify the shell configured for your user:
+
+```sh
+grep "^$USER:" /etc/passwd
+getent passwd "$USER" | cut -d: -f7
+```
+
+After logging out and back in, verify your default and current shells:
+
+```sh
+echo "$SHELL"
+echo "$0"
+```
+
+#### zsh: Simple Examples
+
+```sh
+# Starts a Zsh session manually
+zsh
+
+# Shows your default login shell
+echo "$SHELL"
+
+# Shows the currently running shell
+echo "$0"
+
+# Edits your Zsh configuration file
+micro ~/.zshrc
+
+# Reloads your Zsh configuration after editing it
+source ~/.zshrc
+```
+
+#### zsh: Essential Keystrokes
+
+| Key        | Action                                    |
+| ---------- | ----------------------------------------- |
+| `Tab`      | Autocomplete commands, files, and folders |
+| `Ctrl + A` | Move to the beginning of the line         |
+| `Ctrl + E` | Move to the end of the line               |
+| `Ctrl + R` | Search command history                    |
+| `Ctrl + C` | Cancel the current command                |
+| `Ctrl + L` | Clear the screen                          |
+
+#### zsh: Important Concepts
+
+- `Shell vs terminal`: Zsh is the shell; Ghostty is a terminal application that can run it.
+- `Default shell`: `chsh -s "$(which zsh)"` makes Zsh your login shell.
+- `Config file`: `~/.zshrc` controls aliases, prompts, plugins, and shell behavior.
+- `Aliases`: Shortcuts for longer commands.
+
+---
+
+### oh-my-zsh (`omz`)
+
+#### oh-my-zsh: Overview
+
+Oh My Zsh is a framework for managing your Zsh configuration, themes, aliases, and plugins.
+
+#### oh-my-zsh: Why it's useful
+
+- Makes Zsh easier to customize.
+- Provides built-in plugins for common tools such as `git`, `docker`, and `z`.
+- Makes prompt themes and shell enhancements easier to manage.
+- Improves plain Zsh by providing a ready-made configuration structure.
+
+#### oh-my-zsh: Installation and Verification Commands
+
+Make sure `zsh` is your current active shell first:
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+Verify the installation:
+
+```sh
+omz version
+```
+
+Update Oh My Zsh:
+
+```sh
+omz update
+```
+
+#### oh-my-zsh: Simple Examples
+
+```sh
+# Shows the installed Oh My Zsh version
+omz version
+
+# Updates Oh My Zsh
+omz update
+
+# Opens your Zsh configuration to edit themes, plugins, and aliases
+micro ~/.zshrc
+
+# Reloads your Zsh configuration after editing it
+source ~/.zshrc
+```
+
+#### oh-my-zsh: Essential Keystrokes
+
+`omz` is non-interactive, so it has no essential keystrokes. Editing `~/.zshrc` uses your text editor.
+
+#### oh-my-zsh: Important Concepts
+
+- `~/.zshrc`: Your main Zsh configuration file.
+- `Themes`: Control how your prompt looks.
+- `Plugins`: Add shortcuts, completions, and helper commands.
+- `$ZSH_CUSTOM`: The usual location for custom themes and plugins.
+
+---
+
+### Powerlevel10k (`p10k`)
+
+#### Powerlevel10k: Overview
+
+Powerlevel10k is a fast, highly customizable Zsh prompt theme. It is commonly used with Oh My Zsh.
+
+#### Powerlevel10k: Why it's useful
+
+- Gives your terminal a more informative prompt.
+- Can show Git status, the current folder, time, language versions, and more.
+- Works well with Nerd Fonts such as MesloLGS NF.
+- Improves the default shell prompt by making important context visible.
+
+#### Powerlevel10k: Installation and Verification Commands
+
+Setup guide: [Zsh Plugins](https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df)
+
+```sh
+# Installs the Powerlevel10k theme and useful Zsh plugins
+git clone https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git "$ZSH_CUSTOM/plugins/zsh-autocomplete"
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
+
+# Opens your Zsh configuration file
+micro ~/.zshrc
+```
+
+Update these fields in `~/.zshrc`:
+
+```sh
+plugins=(
+    docker
+    docker-compose
+    extract
+    fast-syntax-highlighting
+    git
+    sublime
+    web-search
+    z
+    zsh-autocomplete
+    zsh-autosuggestions
+)
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+```
+
+Reload your configuration:
+
+```sh
+source ~/.zshrc
+```
+
+Recommended choices during the first interactive setup:
+
+```text
+Diamond: Press 'y'
+Lock: Press 'y'
+Debian Logo: Press 'y' (or) Pointer check: Press 'y'
+Icon Check: Press 'y'
+Prompt Style: Select 'Rainbow'
+Character Set: Select 'Unicode'
+Current Time: Select '12 hour format'
+Prompt Separators: Select 'Angled'
+Prompt Head: Select 'Sharp'
+Prompt Tails: Select 'Flat'
+Prompt Height: Select 'Two lines'
+Prompt Connection: Select 'Dotted'
+Prompt Frame: Select 'Full'
+Connection and Frame: Select 'Dark'
+Prompt Spacing: Select 'Sparse'
+Icons: Select 'Many icons'
+Prompt Flow: Select 'Concise'
+Enable Transient Prompt?: Choose 'No'
+Instant Prompt Mode: Select 'Verbose'
+Overwrite ~/.p10k.zsh?: Choose 'Yes'
+```
+
+Run the configuration wizard again whenever needed:
+
+```sh
+p10k configure
+```
+
+`skip_global_compinit=1` is required for `zsh-autocomplete` on Ubuntu. It prevents Ubuntu's system-wide Zsh configuration from automatically running `compinit`, allowing `zsh-autocomplete` to initialize and manage completion itself.
+
+```sh
+touch ~/.zshenv
+echo "skip_global_compinit=1" >> ~/.zshenv
+exec zsh
+echo "$skip_global_compinit"
+```
+
+#### Powerlevel10k: Simple Examples
+
+```sh
+# Starts the interactive prompt setup
+p10k configure
+
+# Edits your theme and plugin settings
+micro ~/.zshrc
+
+# Reloads your shell configuration
+source ~/.zshrc
+
+# Restarts the current Zsh session
+exec zsh
+```
+
+#### Powerlevel10k: Essential Keystrokes
+
+During `p10k configure`, use the choices shown on screen.
+
+| Key        | Action                      |
+| ---------- | --------------------------- |
+| `y`        | Answer yes to a prompt      |
+| `n`        | Answer no to a prompt       |
+| `Enter`    | Confirm the selected option |
+| `Ctrl + C` | Cancel setup                |
+
+#### Powerlevel10k: Important Concepts
+
+- `Prompt theme`: Powerlevel10k changes your shell prompt, not your terminal application.
+- `Nerd Font`: A Nerd Font is required for icons to display correctly.
+- `Plugins`: `zsh-autocomplete`, `zsh-autosuggestions`, and syntax highlighting improve daily shell usage.
+- `~/.p10k.zsh`: Powerlevel10k's detailed theme configuration file.
+
+#### Powerlevel10k: `~/.zshrc` Configuration
+
+```sh
+# ----------------------------------
+# Powerlevel10k Config
+# ----------------------------------
+
+# Enable Powerlevel10k instant prompt. Keep this close to the top of ~/.zshrc.
+# Initialization code that may require console input, such as password prompts
+# or [y/n] confirmations, must go above this block.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ----------------------------------
+# Theme
+# ----------------------------------
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set the theme to load.
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# ----------------------------------
+# Plugins
+# ----------------------------------
+
+plugins=(
+    docker
+    docker-compose
+    extract
+    fast-syntax-highlighting
+    git
+    sublime
+    web-search
+    z
+    zsh-autocomplete
+    zsh-autosuggestions
+)
+
+source "$ZSH/oh-my-zsh.sh"
+
+# ----------------------------------
+# Aliases
+# ----------------------------------
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias bat='batcat'
+
+# ----------------------------------
+# Tool Startup Config
+# ----------------------------------
+
+# To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# SDKMan: This must stay at the end of the file for SDKMan to work.
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+# Zed
+export PATH="$HOME/.local/bin:$PATH"
+
+# Deno
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"
+if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then
+  . "${___MY_VMOPTIONS_SHELL_FILE}"
+fi
+. "$HOME/.deno/env"
+
+# Go / gonb
+export PATH="$HOME/go/bin:$PATH"
+```
+
+#### Powerlevel10k: `zsh-autocomplete` Fix
+
+```sh
+mkdir -p ~/.local/share/zsh
+touch ~/.local/share/zsh/chpwd-recent-dirs
+exec zsh
+cd /tmp
+cd ~
+```
+
+---
+
+### SDKMan (`sdk`)
+
+#### SDKMan: Overview
+
+SDKMan manages software development kits such as Java, Gradle, Maven, and JMeter.
+
+#### SDKMan: Why it's useful
+
+- Installs developer tools without manually downloading archives.
+- Lets you manage multiple versions of Java and related tools.
+- Makes switching versions easier.
+- Improves on one-off manual installations for JVM-based tooling.
+
+#### SDKMan: Installation and Verification Commands
+
+```sh
+curl -s "https://get.sdkman.io" | bash
+source ~/.zshrc
+sdk version
+```
+
+#### SDKMan: Simple Examples
+
+```sh
+# Shows the installed SDKMan version
+sdk version
+
+# Lists available Java versions
+sdk list java
+
+# Shows currently active SDKMan-managed tools
+sdk current
+
+# Cleans SDKMan temporary files and caches
+sdk flush
+```
+
+#### SDKMan: Essential Keystrokes
+
+`sdk` is non-interactive, though some installations may ask for confirmation.
+
+#### SDKMan: Important Concepts
+
+- `Candidate`: A tool SDKMan can install, such as Java, Gradle, or Maven.
+- `Version`: SDKMan lets you install more than one version of the same tool.
+- `Default version`: The version used automatically in new terminal sessions.
+- `Shell config`: SDKMan needs its initialization script loaded from `~/.zshrc`.
+
+---
+
+### Java (`java`)
+
+#### Java: Overview
+
+Java is a programming language and runtime used by many backend, Android, data, and enterprise tools. SDKMan is a convenient way to install and manage Java versions.
+
+#### Java: Why it's useful
+
+- Many tools require Java, including Gradle, Maven, and JMeter.
+- SDKMan makes it easy to install multiple Java versions.
+- Useful when different projects require different Java versions.
+
+#### Java: Installation and Verification Commands
+
+```sh
+# Lists available Java versions
+sdk list java
+
+# Installs Temurin Java versions
+sdk install java 25.0.4-tem
+sdk install java 21.0.12-tem
+sdk install java 8.0.502-tem
+
+# Shows the currently active Java version
+sdk current java
+
+# Shows installed and local Java versions
+sdk list java | grep -e installed -e local
+
+# Cleans SDKMan temporary files and caches
+sdk flush
+```
+
+If required:
+
+```sh
+sdk update
+sdk selfupdate
+sdk default java 21.0.12-tem
+```
+
+#### Java: Simple Examples
+
+```sh
+# Lists Java versions available through SDKMan
+sdk list java
+
+# Installs Java 21 from the Temurin distribution
+sdk install java 21.0.12-tem
+
+# Shows the currently active Java version
+sdk current java
+
+# Checks the Java runtime version
+java -version
+```
+
+#### Java: Essential Keystrokes
+
+Java and SDKMan commands are non-interactive, though installations may ask for confirmation.
+
+#### Java: Important Concepts
+
+- `JDK vs JRE`: A JDK is used for development; a JRE is only for running Java applications.
+- `LTS versions`: Java 8, 11, 17, and 21 are common long-term support versions.
+- `Default version`: `sdk default java ...` sets the Java version for new shells.
+- `Temurin`: The `-tem` suffix refers to Eclipse Temurin builds.
+
+---
+
+### Gradle (`gradle`)
+
+#### Gradle: Overview
+
+Gradle is a build tool commonly used for Java, Kotlin, Android, and JVM projects.
+
+#### Gradle: Why it's useful
+
+- Builds, tests, and packages projects.
+- Common in Android and modern JVM projects.
+- Runs project-defined tasks consistently.
+- Often replaces older Ant-based build workflows and complements Maven.
+
+#### Gradle: Installation and Verification Commands
+
+```sh
+sdk list gradle
+sdk install gradle 9.7.0
+sdk default gradle 9.7.0
+source ~/.zshrc
+gradle --version
+```
+
+#### Gradle: Simple Examples
+
+```sh
+# Shows the installed Gradle version
+gradle --version
+
+# Lists available tasks in a Gradle project
+gradle tasks
+
+# Builds the project
+gradle build
+
+# Runs project tests
+gradle test
+```
+
+#### Gradle: Essential Keystrokes
+
+`gradle` is non-interactive, so it has no essential keystrokes.
+
+#### Gradle: Important Concepts
+
+- `Task`: A named action Gradle can run, such as `build` or `test`.
+- `Wrapper`: Many projects use `./gradlew` instead of a system-wide `gradle` command.
+- `Build file`: Gradle projects usually use `build.gradle` or `build.gradle.kts`.
+
+---
+
+### Maven (`mvn`)
+
+#### Maven: Overview
+
+Maven is a build and dependency-management tool commonly used for Java projects.
+
+#### Maven: Why it's useful
+
+- Builds Java projects in a standard way.
+- Downloads and manages dependencies.
+- Common in enterprise Java projects.
+- Complements Gradle; both solve similar build problems with different styles.
+
+#### Maven: Installation and Verification Commands
+
+```sh
+sdk list maven
+sdk install maven 3.9.16
+mvn --version
+```
+
+#### Maven: Simple Examples
+
+```sh
+# Shows the installed Maven version
+mvn --version
+
+# Compiles the project
+mvn compile
+
+# Runs tests
+mvn test
+
+# Builds the project package, such as a .jar file
+mvn package
+```
+
+#### Maven: Essential Keystrokes
+
+`mvn` is non-interactive, so it has no essential keystrokes.
+
+#### Maven: Important Concepts
+
+- `pom.xml`: Maven's main project configuration file.
+- `Lifecycle`: Maven has standard phases such as `compile`, `test`, and `package`.
+- `Dependencies`: Maven downloads project libraries automatically.
+
+---
+
+### JMeter (`jmeter`)
+
+#### JMeter: Overview
+
+JMeter is a tool for load testing and performance testing applications, especially web APIs and services.
+
+#### JMeter: Why it's useful
+
+- Tests how a service behaves under load.
+- Useful for API, web, and backend performance checks.
+- Can run with a GUI for designing tests or from the command line for automation.
+
+#### JMeter: Installation and Verification Commands
+
+```sh
+sdk list jmeter
+sdk install jmeter 5.6.3
+jmeter --version
+```
+
+#### JMeter: Simple Examples
+
+```sh
+# Shows the installed JMeter version
+jmeter --version
+
+# Opens the JMeter GUI
+jmeter
+
+# Runs a test plan in non-GUI mode
+jmeter -n -t test-plan.jmx
+
+# Runs a test plan and saves results to results.jtl
+jmeter -n -t test-plan.jmx -l results.jtl
+```
+
+#### JMeter: Essential Keystrokes
+
+If using the JMeter GUI:
+
+| Key        | Action         |
+| ---------- | -------------- |
+| `Ctrl + S` | Save test plan |
+| `Ctrl + O` | Open test plan |
+| `Ctrl + R` | Start test     |
+| `Ctrl + .` | Stop test      |
+
+#### JMeter: Important Concepts
+
+- `Test plan`: A `.jmx` file that describes what JMeter should test.
+- `Thread group`: Controls virtual users and the load pattern.
+- `GUI vs non-GUI`: Use the GUI to design tests; use `-n` mode to run repeatable tests.
+- `Results file`: `-l results.jtl` saves test results.
+
+---
+
+### AQL (`aql`)
+
+#### AQL: Overview
+
+`aql` is the Aerospike Query Language shell. It is used to connect to Aerospike databases and run queries or administrative checks.
+
+#### AQL: Why it's useful
+
+- Lets you interact with Aerospike from the terminal.
+- Useful for checking records, namespaces, sets, and indexes.
+- Comes with Aerospike Tools.
+- Similar in purpose to `mysql` or `psql`, but for Aerospike.
+
+#### AQL: Installation and Verification Commands
+
+Check your Ubuntu version and CPU architecture:
+
+```sh
+lsb_release -a
+uname -m
+```
+
+Example output:
+
+```text
+Ubuntu 26.04
+x86_64
+```
+
+1. Visit [Aerospike Tools downloads](https://aerospike.com/download/tools/) to find the latest compatible version.
+2. Select **Supported Versions** and copy the download link for your Ubuntu version and CPU architecture.
+3. Download and install the matching package:
+
+```sh
+wget https://download.aerospike.com/artifacts/aerospike-tools/13.0.2/aerospike-tools_13.0.2_ubuntu26.04_x86_64.tgz
+tar -xvf aerospike-tools_13.0.2_ubuntu26.04_x86_64.tgz
+cd aerospike-tools_13.0.2_ubuntu26.04_x86_64
+sudo dpkg -i aerospike-tools_13.0.2-ubuntu26.04_amd64.deb
+aql --version
+```
+
+#### AQL: Simple Examples
+
+```sh
+# Shows the installed AQL version
+aql --version
+
+# Starts the AQL shell using default connection settings
+aql
+
+# Connects to Aerospike on host 127.0.0.1 and port 3000
+aql -h 127.0.0.1 -p 3000
+
+# Runs one AQL command and exits
+aql -c "show namespaces"
+```
+
+#### AQL: Essential Keystrokes
+
+Inside the interactive AQL shell:
+
+| Key        | Action                       |
+| ---------- | ---------------------------- |
+| `Ctrl + C` | Cancel current input or exit |
+| `Ctrl + D` | Exit the shell               |
+| `Enter`    | Run the command              |
+
+#### AQL: Important Concepts
+
+- `Aerospike Tools`: The package that includes `aql`.
+- `Host and port`: Aerospike commonly listens on port `3000`.
+- `Interactive vs one-shot`: Use `aql` to open a shell, or `aql -c "command"` to run one command.
+- `Version matching`: Download the Aerospike Tools build that matches your Ubuntu version and CPU architecture.
+
+---
+
+### NVM (`nvm`)
+
+#### NVM: Overview
+
+NVM is Node Version Manager. It installs and switches between Node.js versions.
+
+#### NVM: Why it's useful
+
+- Lets you install Node.js without using system packages.
+- Makes it easy to use different Node.js versions for different projects.
+- Installs `npm` along with Node.js.
+- Improves on a single global Node.js installation.
+
+#### NVM: Installation and Verification Commands
+
+```sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+source ~/.zshrc
+nvm --version
+
+# Installs the latest long-term support version of Node.js
+nvm install --lts
+
+# Verifies Node.js and npm
+node -v
+npm -v
+```
+
+Optional commands:
+
+```sh
+# Switches the current shell to the LTS Node.js version
+nvm use --lts
+
+# Makes the LTS version the default for new shells
+nvm alias default 'lts/*'
+```
+
+#### NVM: Simple Examples
+
+```sh
+# Shows the installed NVM version
+nvm --version
+
+# Installs the latest long-term support version of Node.js
+nvm install --lts
+
+# Switches the current shell to the LTS Node.js version
+nvm use --lts
+
+# Shows the active Node.js version
+node -v
+```
+
+#### NVM: Essential Keystrokes
+
+`nvm` is a non-interactive shell function, so it has no essential keystrokes.
+
+#### NVM: Important Concepts
+
+- `Node.js`: A JavaScript runtime used for frontend tooling and backend applications.
+- `LTS`: A long-term support version, recommended for most users.
+- `Default alias`: Controls which Node.js version new shells use.
+- `Shell integration`: NVM must be loaded from your shell configuration file.
+
+---
