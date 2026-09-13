@@ -6,6 +6,12 @@
   - [Table of Contents](#table-of-contents)
   - [Set Up Ubuntu, Resolve Issues and Tweaks](#set-up-ubuntu-resolve-issues-and-tweaks)
     - [Install the Perfect Terminal Font: MesloLGS NF](#install-the-perfect-terminal-font-meslolgs-nf)
+    - [Install the Perfect Editor Font: Cascadia Mono](#install-the-perfect-editor-font-cascadia-mono)
+    - [Ubuntu Text Sharpness Fix](#ubuntu-text-sharpness-fix)
+    - [Update Custom DNS Settings](#update-custom-dns-settings)
+    - [GNOME Online Accounts](#gnome-online-accounts)
+    - [GNOME Multitasking Settings](#gnome-multitasking-settings)
+  - [Ubuntu Keyboard Shortcuts](#ubuntu-keyboard-shortcuts)
   - [Applications](#applications)
     - [1. Google Chrome](#1-google-chrome)
     - [2. Visual Studio Code](#2-visual-studio-code)
@@ -46,6 +52,34 @@
     - [JMeter](#jmeter-jmeter)
     - [AQL](#aql-aql)
     - [NVM](#nvm-nvm)
+    - [MariaDB Client](#mariadb-client-mysql)
+    - [pyenv](#pyenv-pyenv)
+    - [Docker Desktop](#docker-desktop-docker)
+    - [JetBrains Toolbox](#jetbrains-toolbox-jetbrains-toolbox)
+    - [GitHub Desktop](#github-desktop-github-desktop)
+    - [Allure](#allure-allure)
+    - [Vim](#vim-vim)
+    - [Zed](#zed-zed)
+    - [uv](#uv-uv)
+    - [Ollama](#ollama-ollama)
+    - [DBeaver Community](#dbeaver-community-dbeaver)
+    - [Studio 3T Community Edition](#studio-3t-community-edition-studio-3t)
+    - [Okular PDF Reader](#okular-pdf-reader-okular)
+    - [Golang](#golang-go)
+    - [Timeshift](#timeshift-timeshift)
+    - [GNOME Tweaks](#gnome-tweaks-gnome-tweaks)
+    - [Extension Manager](#extension-manager-gnome-shell-extension-manager)
+    - [Software Properties GTK](#software-properties-gtk-software-properties-gtk)
+    - [Media Codecs](#media-codecs-ubuntu-restricted-extras)
+    - [VLC](#vlc-vlc)
+    - [Firewall](#firewall-ufw-gufw)
+    - [TLP](#tlp-tlp)
+    - [Thermald](#thermald-thermald)
+    - [Synaptic](#synaptic-synaptic)
+    - [Preload](#preload-preload)
+    - [Papirus Icon Theme](#papirus-icon-theme)
+    - [BleachBit](#bleachbit-bleachbit)\
+    - [XAMPP](#xampp-lampp)
 
 ## Set Up Ubuntu, Resolve Issues and Tweaks
 
@@ -111,6 +145,323 @@ fc-cache -fv
 - `Nerd Font`: A font patched with extra icons for terminal prompts.
 - `User font folder`: `~/.local/share/fonts` installs fonts only for your user account.
 - `Terminal font setting`: After installation, set your terminal font to `MesloLGS NF` in the terminal configuration.
+
+---
+
+### Install the Perfect Editor Font: Cascadia Mono
+
+#### Cascadia Mono: Overview
+
+Cascadia Mono is a monospaced font useful for terminals and code editors.
+
+#### Cascadia Mono: Why it's useful
+
+- Makes code and terminal text easier to read.
+- A good choice for editors and terminal emulators.
+- Available directly from Ubuntu packages.
+
+#### Cascadia Mono: Installation and Verification Commands
+
+```sh
+sudo apt update
+sudo apt install fonts-cascadia-code
+```
+
+Verify the installation:
+
+```sh
+fc-list | grep -i "Cascadia Mono"
+fc-match "Cascadia Mono"
+```
+
+#### Cascadia Mono: Simple Examples
+
+```sh
+# Checks whether Cascadia Mono is installed
+fc-list | grep -i "Cascadia Mono"
+
+# Shows the matching font file
+fc-match "Cascadia Mono"
+
+# Refreshes the font cache if needed
+fc-cache -fv
+```
+
+#### Cascadia Mono: Important Concepts
+
+- `Monospace font`: Every character has the same width, which helps code align properly.
+- `Font cache`: Linux uses a cache to find installed fonts.
+- `Editor setting`: Install the font, then select it in your terminal or editor settings.
+
+---
+
+### Ubuntu Text Sharpness Fix
+
+#### Ubuntu Text Sharpness Fix: Overview
+
+This GNOME setting changes font hinting to make text appear sharper on some displays.
+
+#### Ubuntu Text Sharpness Fix: Why it's useful
+
+- Can improve text clarity on 1080p laptop screens.
+- Helps fonts align more strongly to physical pixels.
+- Useful if Ubuntu desktop text looks slightly soft or blurry.
+
+#### Ubuntu Text Sharpness Fix: Installation and Verification Commands
+
+```sh
+gsettings set org.gnome.desktop.interface font-hinting 'full'
+```
+
+Log out and log back in to apply the change fully.
+
+Verify the setting:
+
+```sh
+gsettings get org.gnome.desktop.interface font-hinting
+```
+
+#### Ubuntu Text Sharpness Fix: Simple Examples
+
+```sh
+# Shows the current font hinting setting
+gsettings get org.gnome.desktop.interface font-hinting
+
+# Sets font hinting to full
+gsettings set org.gnome.desktop.interface font-hinting 'full'
+
+# Restores the common lighter hinting style
+gsettings set org.gnome.desktop.interface font-hinting 'slight'
+```
+
+#### Ubuntu Text Sharpness Fix: Important Concepts
+
+- `Font hinting`: Controls how font shapes align to physical pixels.
+- `slight`: Preserves font shapes more closely, but can look softer.
+- `full`: Aligns strokes more aggressively to pixels, which can look sharper.
+- `Logout/login`: Some desktop font-rendering changes may require a new session.
+
+---
+
+### Update Custom DNS Settings
+
+#### Custom DNS: Overview
+
+Custom DNS lets you choose which DNS servers your system uses to resolve domain names.
+
+#### Custom DNS: Why it's useful
+
+- Can improve reliability if your default DNS is slow or broken.
+- Useful for using public DNS providers such as Google DNS.
+- Helps troubleshoot network name-resolution issues.
+
+#### Custom DNS: Installation and Verification Commands
+
+Open the network settings for your currently connected Wi-Fi network:
+
+```text
+Settings → Wi-Fi → Click the settings icon for the currently connected network
+```
+
+Configure IPv4 DNS:
+
+```text
+1. Open the IPv4 tab.
+2. Turn off Automatic DNS.
+3. Enter: 8.8.8.8, 8.8.4.4
+```
+
+Configure IPv6 DNS:
+
+```text
+1. Open the IPv6 tab.
+2. Turn off Automatic DNS.
+3. Enter: 2001:4860:4860::8888, 2001:4860:4860::8844
+```
+
+#### Custom DNS: Simple Examples
+
+```sh
+# Shows the DNS settings currently used by the system
+resolvectl status
+
+# Tests DNS resolution for a domain
+nslookup google.com
+
+# Checks whether a domain resolves and responds
+ping google.com
+```
+
+#### Custom DNS: Important Concepts
+
+- `DNS`: Converts names such as `google.com` into IP addresses.
+- `IPv4 DNS`: Uses addresses such as `8.8.8.8`.
+- `IPv6 DNS`: Uses addresses such as `2001:4860:4860::8888`.
+- `Automatic DNS`: Provided by your router or network unless disabled.
+
+---
+
+### GNOME Online Accounts
+
+#### GNOME Online Accounts: Overview
+
+GNOME Online Accounts connects accounts such as Google and Microsoft 365 to Ubuntu desktop applications.
+
+#### GNOME Online Accounts: Why it's useful
+
+- Syncs calendar, contacts, and email integration into GNOME applications.
+- Reduces repeated sign-ins across desktop applications.
+- Useful after setting up a fresh Ubuntu desktop.
+
+#### GNOME Online Accounts: Installation and Verification Commands
+
+Open Online Accounts from:
+
+```text
+Settings → Online Accounts
+```
+
+Connect your Google, Microsoft 365, or other supported accounts.
+
+Account integration:
+
+```text
+Google Calendar feeds into GNOME Calendar.
+Google Contacts syncs into GNOME Contacts.
+Email becomes available to compatible apps without repeated sign-ins.
+```
+
+#### GNOME Online Accounts: Simple Examples
+
+```sh
+# Opens Online Accounts settings, if available
+gnome-control-center online-accounts
+
+# Opens GNOME Calendar, if installed
+gnome-calendar
+
+# Opens GNOME Contacts, if installed
+gnome-contacts
+```
+
+#### GNOME Online Accounts: Important Concepts
+
+- `Account provider`: Google, Microsoft 365, and other supported services.
+- `Desktop integration`: Account data becomes available to GNOME applications.
+- `Sync`: Calendar and contact data can update automatically.
+
+---
+
+### GNOME Multitasking Settings
+
+#### GNOME Multitasking Settings: Overview
+
+GNOME Multitasking settings control workspace and application-switching behavior.
+
+#### GNOME Multitasking Settings: Why it's useful
+
+- Makes workspace behavior less distracting.
+- Helps application switching focus on the current workspace.
+- Useful if you organize work by workspace.
+
+#### GNOME Multitasking Settings: Installation and Verification Commands
+
+Open Multitasking settings:
+
+```text
+Settings → Multitasking
+```
+
+Recommended settings:
+
+```text
+1. Enable Hot Corner.
+2. Under App Switching, select:
+   "Include apps from the current workspace only"
+```
+
+#### GNOME Multitasking Settings: Simple Examples
+
+```sh
+# Opens multitasking settings, if supported
+gnome-control-center multitasking
+
+# Checks whether app switching is limited to the current workspace
+gsettings get org.gnome.shell.app-switcher current-workspace-only
+
+# Limits app switching to the current workspace
+gsettings set org.gnome.shell.app-switcher current-workspace-only true
+```
+
+#### GNOME Multitasking Settings: Essential Keystrokes
+
+GNOME workspace navigation is interactive:
+
+| Key                 | Action                         |
+| ------------------- | ------------------------------ |
+| `Super`             | Open overview                  |
+| `Alt + Tab`         | Switch applications            |
+| `Super + Page Up`   | Move to the previous workspace |
+| `Super + Page Down` | Move to the next workspace     |
+
+#### GNOME Multitasking Settings: Important Concepts
+
+- `Workspace`: A virtual desktop for grouping windows.
+- `Hot Corner`: Moving the pointer to a corner opens the overview.
+- `Current workspace only`: Makes application switching less cluttered.
+
+## Ubuntu Keyboard Shortcuts
+
+### Ubuntu Keyboard Shortcuts: Overview
+
+These GNOME keyboard shortcuts help you open applications and move windows quickly.
+
+### Ubuntu Keyboard Shortcuts: Why it's useful
+
+- Speeds up everyday desktop navigation.
+- Makes window management easier.
+- Useful when working across many applications and terminals.
+
+### Ubuntu Keyboard Shortcuts: Installation and Verification Commands
+
+No installation is needed. These shortcuts are built into Ubuntu GNOME.
+
+### Ubuntu Keyboard Shortcuts: Simple Examples
+
+```text
+Super + Number
+```
+
+Opens the application in the dock at that position.
+
+```text
+Super + Super
+```
+
+Opens the application launcher grid.
+
+```text
+Super + Arrow keys
+```
+
+Moves the current window left, right, or maximizes it, depending on the direction and current state.
+
+### Ubuntu Keyboard Shortcuts: Essential Keystrokes
+
+| Key              | Action                                     |
+| ---------------- | ------------------------------------------ |
+| `Super + Number` | Open the dock application in that position |
+| `Super + Super`  | Open the application launcher grid         |
+| `Super + Left`   | Tile the current window left               |
+| `Super + Right`  | Tile the current window right              |
+| `Super + Up`     | Maximize the current window                |
+| `Super + Down`   | Restore or minimize the current window     |
+
+### Ubuntu Keyboard Shortcuts: Important Concepts
+
+- `Super key`: Usually the Windows key or Command-like key on the keyboard.
+- `Dock position`: Numbers map to application icons pinned in the dock.
+- `Window tiling`: Quickly places windows without dragging.
 
 ## Applications
 
@@ -675,6 +1026,17 @@ Applications → Android Studio
 
 ### 11. Android Studio Configuration
 
+#### Android Studio: Overview
+
+Android Studio is the main IDE for Android app development. It includes tools for building, running, debugging, and managing Android SDKs.
+
+#### Android Studio: Why it's useful
+
+- Required for most Android development workflows.
+- Installs and manages Android SDK components.
+- Provides `adb` for device and emulator communication.
+- Works well when installed through JetBrains Toolbox.
+
 #### Enabling Command Line Tools in Android Studio
 
 To enable Command Line Tools in Android Studio perform the following steps:
@@ -707,6 +1069,24 @@ To enable Command Line Tools in Android Studio perform the following steps:
   export PATH=$PATH:$ANDROID_HOME/platform-tools
   export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
   ```
+
+#### Android Studio: Essential Keystrokes
+
+Android Studio is interactive:
+
+| Key                | Action                      |
+| ------------------ | --------------------------- |
+| `Ctrl + Shift + A` | Search actions and settings |
+| `Ctrl + Alt + S`   | Open settings               |
+| `Shift + F10`      | Run app                     |
+| `Shift + F9`       | Debug app                   |
+
+#### Android Studio: Important Concepts
+
+- `Android SDK`: Tools and platform files needed for Android development.
+- `ANDROID_HOME`: Environment variable that points to your SDK folder.
+- `adb`: Command-line tool for devices and emulators.
+- `sdkmanager`: Installs and updates SDK components.
 
 #### Important Commands
 
@@ -2445,5 +2825,1793 @@ node -v
 - `LTS`: A long-term support version, recommended for most users.
 - `Default alias`: Controls which Node.js version new shells use.
 - `Shell integration`: NVM must be loaded from your shell configuration file.
+
+---
+
+### MariaDB Client (`mysql`)
+
+#### MariaDB Client: Overview
+
+MariaDB Client provides the `mysql` command-line client. It is used to connect to MySQL or MariaDB databases.
+
+#### MariaDB Client: Why it's useful
+
+- Lets you connect to remote MySQL or MariaDB databases from the terminal.
+- Useful for checking tables, running queries, and debugging database access.
+- Lets you install only the client without installing a full database server.
+- Replaces needing a GUI tool for quick database checks.
+
+#### MariaDB Client: Installation and Verification Commands
+
+If you only need the `mysql` command to connect to another database:
+
+```sh
+sudo apt install -y mariadb-client
+mysql --version
+mysql -h <db-host> -P 3306 -u <username> -p
+```
+
+If the package cannot be found, use this on Fedora/RHEL-style systems:
+
+```sh
+dnf install -y mariadb
+```
+
+#### MariaDB Client: Simple Examples
+
+```sh
+# Shows the installed MySQL/MariaDB client version
+mysql --version
+
+# Connects to a remote database and prompts for a password
+mysql -h <db-host> -P 3306 -u <username> -p
+
+# Connects as the local root user and prompts for a password
+mysql -u root -p
+
+# Connects directly to a specific database
+mysql -h <db-host> -u <username> -p <database>
+```
+
+#### MariaDB Client: Essential Keystrokes
+
+Inside the interactive MySQL shell:
+
+| Key        | Action                                    |
+| ---------- | ----------------------------------------- |
+| `Ctrl + C` | Cancel current input                      |
+| `Ctrl + D` | Exit the shell                            |
+| `Enter`    | Continue or run a completed SQL statement |
+
+#### MariaDB Client: Important Concepts
+
+- `Client vs server`: `mariadb-client` installs the command used to connect; it does not install a database server.
+- `Host`: `-h` chooses the database server.
+- `Port`: `-P 3306` uses the default MySQL or MariaDB port.
+- `Password prompt`: `-p` asks for a password securely.
+
+---
+
+### pyenv (`pyenv`)
+
+#### pyenv: Overview
+
+`pyenv` manages multiple Python versions on one system.
+
+#### pyenv: Why it's useful
+
+- Lets you install newer Python versions without replacing the system Python.
+- Helps different projects use different Python versions.
+- Avoids breaking Ubuntu's system Python.
+- Useful for development, testing, and tool compatibility.
+
+#### pyenv: Installation and Verification Commands
+
+```sh
+# Installs dependencies needed to build Python versions
+sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+  libbz2-dev libreadline-dev libsqlite3-dev curl git \
+  libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+  libffi-dev liblzma-dev
+
+# Installs pyenv
+curl https://pyenv.run | bash
+
+# Adds pyenv to your Zsh configuration
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc
+
+# Reloads the configuration
+source ~/.zshrc
+
+# Finds, installs, and activates a Python version
+pyenv install --list | grep 3.14
+pyenv install 3.14.7
+pyenv global 3.14.7
+
+# Verifies the active Python version
+python --version
+
+# Updates pyenv
+pyenv update
+```
+
+#### pyenv: Simple Examples
+
+```sh
+# Lists Python versions available to install
+pyenv install --list
+
+# Installs Python 3.14.7
+pyenv install 3.14.7
+
+# Sets Python 3.14.7 as the global default
+pyenv global 3.14.7
+
+# Shows the active Python version
+python --version
+```
+
+#### pyenv: Essential Keystrokes
+
+`pyenv` is non-interactive, so it has no essential keystrokes.
+
+#### pyenv: Important Concepts
+
+- `System Python`: Ubuntu uses its own Python; avoid replacing it directly.
+- `Global version`: The default Python version for your user account.
+- `Local version`: A project-specific Python version, usually set with `pyenv local`.
+- `Build dependencies`: Python versions are compiled locally, so required libraries must be installed first.
+
+---
+
+### Docker Desktop (`docker`)
+
+#### Docker Desktop: Overview
+
+Docker Desktop provides Docker Engine, Docker CLI, Docker Compose, and a desktop user interface for running containers on Ubuntu.
+
+#### Docker Desktop: Why it's useful
+
+- Runs applications in isolated containers.
+- Makes local development environments easier to reproduce.
+- Common for databases, backend services, and development stacks.
+- Improves on installing every service directly on your host system.
+
+#### Docker Desktop: Installation and Verification Commands
+
+See the official [Docker Desktop for Ubuntu installation guide](https://docs.docker.com/desktop/setup/install/linux/ubuntu/).
+
+Download `docker-desktop-amd64.deb`, then install the `docker-ce-cli` dependency:
+
+```sh
+sudo apt install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+  -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Verify that `docker-ce-cli` is available:
+
+```sh
+sudo apt update
+apt-cache policy docker-ce-cli
+```
+
+Install and start Docker Desktop:
+
+```sh
+cd ~/Downloads
+sudo apt install ./docker-desktop-amd64.deb
+
+systemctl --user start docker-desktop
+docker --version
+docker compose version
+docker run hello-world
+
+systemctl --user status docker-desktop
+```
+
+Stop Docker Desktop:
+
+```sh
+systemctl --user stop docker-desktop
+```
+
+Prevent Docker Desktop from starting automatically:
+
+```sh
+systemctl --user disable docker-desktop
+```
+
+Enable automatic startup again:
+
+```sh
+systemctl --user enable docker-desktop
+```
+
+#### Docker Desktop: Simple Examples
+
+```sh
+# Shows the Docker CLI version
+docker --version
+
+# Runs Docker's test container to verify the setup
+docker run hello-world
+
+# Lists currently running containers
+docker ps
+
+# Shows the Docker Compose version
+docker compose version
+```
+
+#### Docker Desktop: Essential Keystrokes
+
+`docker` is non-interactive, so it has no essential keystrokes. Docker Desktop also provides a graphical interface.
+
+#### Docker Desktop: Important Concepts
+
+- `Image`: A packaged template used to create containers.
+- `Container`: A running instance of an image.
+- `Compose`: A way to run multi-container applications from a `compose.yaml` file.
+- `Docker Desktop service`: Controlled with `systemctl --user`.
+
+---
+
+### JetBrains Toolbox (`jetbrains-toolbox`)
+
+#### JetBrains Toolbox: Overview
+
+JetBrains Toolbox manages JetBrains IDEs such as IntelliJ IDEA, PyCharm, WebStorm, Android Studio, and DataGrip.
+
+#### JetBrains Toolbox: Why it's useful
+
+- Installs and updates JetBrains IDEs from one place.
+- Makes it easier to manage multiple JetBrains tools.
+- Creates application launchers after the first launch.
+- Is better than manually extracting and updating every IDE separately.
+
+#### JetBrains Toolbox: Installation and Verification Commands
+
+Download JetBrains Toolbox from the official [JetBrains Toolbox App page](https://www.jetbrains.com/toolbox-app/).
+
+```sh
+# Installs required dependencies
+sudo apt update
+sudo apt install -y \
+  libxi6 \
+  libxrender1 \
+  libxtst6 \
+  mesa-utils \
+  libfontconfig1 \
+  libgtk-3-bin \
+  tar \
+  dbus-user-session \
+  libxcb-keysyms1
+
+# Creates an applications folder and extracts Toolbox into it
+mkdir -p ~/Applications
+tar -xvf ~/Downloads/jetbrains-toolbox-3.7.2.87231.tar.gz -C ~/Applications
+mv ~/Applications/jetbrains-toolbox-3.7.2.87231 ~/Applications/jetbrains-toolbox
+
+# Starts JetBrains Toolbox
+cd ~/Applications/jetbrains-toolbox/bin
+./jetbrains-toolbox
+```
+
+Toolbox creates its application launcher after its first launch.
+
+Toolbox stores application files here:
+
+```text
+~/.local/share/JetBrains/Toolbox
+```
+
+It also creates a desktop entry here:
+
+```text
+~/.local/share/applications
+```
+
+After the first launch, JetBrains Toolbox should be available from Ubuntu's application launcher.
+
+#### JetBrains Toolbox: Simple Examples
+
+```sh
+# Starts JetBrains Toolbox from its extracted folder
+./jetbrains-toolbox
+
+# Checks whether Toolbox created its local files
+ls ~/.local/share/JetBrains/Toolbox
+
+# Checks for JetBrains desktop launchers
+ls ~/.local/share/applications | grep -i jetbrains
+```
+
+#### JetBrains Toolbox: Essential Keystrokes
+
+The command-line setup has no essential keystrokes. JetBrains Toolbox itself is a graphical application.
+
+#### JetBrains Toolbox: Important Concepts
+
+- `Toolbox app`: A manager for JetBrains IDE installations.
+- `Application launcher`: Created after the first launch so you can open Toolbox from Ubuntu search.
+- `Install location`: This setup places Toolbox under `~/Applications`.
+
+---
+
+### GitHub Desktop (`github-desktop`)
+
+#### GitHub Desktop: Overview
+
+GitHub Desktop is a graphical Git client for working with GitHub repositories.
+
+#### GitHub Desktop: Why it's useful
+
+- Easier for beginners than using only Git commands.
+- Helps visualize branches, commits, and file changes.
+- Useful for cloning, committing, pushing, and pulling from GitHub.
+- Complements `git`; it does not replace learning basic Git commands.
+
+#### GitHub Desktop: Installation and Verification Commands
+
+Linux repository: [sarim/github-desktop](https://github.com/sarim/github-desktop)
+
+```sh
+sudo apt update
+sudo apt install -y wget gpg
+```
+
+Add the repository signing key:
+
+```sh
+wget -qO - https://mirror.mwt.me/shiftkey-desktop/gpgkey | \
+  gpg --dearmor | \
+  sudo tee /etc/apt/keyrings/mwt-desktop.gpg > /dev/null
+```
+
+Add the repository:
+
+```sh
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/mwt-desktop.gpg] https://mirror.mwt.me/shiftkey-desktop/deb/ any main" > /etc/apt/sources.list.d/mwt-desktop.list'
+```
+
+Install and verify GitHub Desktop:
+
+```sh
+sudo apt update
+sudo apt install -y github-desktop
+github-desktop --version
+github-desktop
+```
+
+#### GitHub Desktop: Simple Examples
+
+```sh
+# Shows the installed GitHub Desktop version
+github-desktop --version
+
+# Opens GitHub Desktop
+github-desktop
+
+# Checks repository state in the terminal
+git status
+```
+
+#### GitHub Desktop: Essential Keystrokes
+
+GitHub Desktop is interactive:
+
+| Key                | Action                                          |
+| ------------------ | ----------------------------------------------- |
+| `Ctrl + O`         | Add or open a repository                        |
+| `Ctrl + Shift + O` | Clone a repository                              |
+| `Ctrl + Enter`     | Commit changes                                  |
+| `Ctrl + P`         | Push or pull, depending on the repository state |
+
+#### GitHub Desktop: Important Concepts
+
+- `Repository`: A Git-tracked project folder.
+- `Commit`: A saved set of changes.
+- `Push and pull`: Synchronize local work with GitHub.
+- `GitHub Desktop vs git`: GitHub Desktop is a graphical interface built on top of Git workflows.
+
+---
+
+### Allure (`allure`)
+
+#### Allure: Overview
+
+Allure is a test reporting tool. It turns test result files into readable HTML reports.
+
+#### Allure: Why it's useful
+
+- Makes automated test results easier to inspect.
+- Works with frameworks such as JUnit, TestNG, Pytest, Playwright, and Cucumber.
+- Helps share test failures and trends with a team.
+
+#### Allure: Installation and Verification Commands
+
+```sh
+npm install -g allure
+allure --version
+```
+
+#### Allure: Simple Examples
+
+```sh
+# Shows the installed Allure version
+allure --version
+
+# Generates and opens a temporary report from allure-results
+allure serve allure-results
+
+# Generates a static report folder
+allure generate allure-results -o allure-report
+
+# Opens an already generated report
+allure open allure-report
+```
+
+#### Allure: Essential Keystrokes
+
+`allure` is non-interactive, so it has no essential keystrokes.
+
+#### Allure: Important Concepts
+
+- `Results folder`: Test frameworks usually write raw Allure files to `allure-results`.
+- `Report folder`: `allure-report` contains the generated HTML report.
+- `Serve vs generate`: `serve` is for a quick preview; `generate` creates reusable output.
+
+---
+
+### Vim (`vim`)
+
+#### Vim: Overview
+
+Vim is a powerful terminal text editor commonly available on Unix and Linux systems.
+
+#### Vim: Why it's useful
+
+- Works almost everywhere, including remote servers.
+- Good for quick edits when no graphical editor is available.
+- Very powerful once you learn the basics.
+- More advanced than beginner-friendly editors such as `nano` or `micro`.
+
+#### Vim: Installation and Verification Commands
+
+```sh
+sudo apt install -y vim
+vim --version
+```
+
+#### Vim: Simple Examples
+
+```sh
+# Opens or creates file.txt
+vim file.txt
+
+# Edits your Zsh configuration
+vim ~/.zshrc
+
+# Edits a system file with administrator permissions
+sudo vim /etc/hosts
+```
+
+#### Vim: Essential Keystrokes
+
+| Key     | Action                |
+| ------- | --------------------- |
+| `i`     | Enter insert mode     |
+| `Esc`   | Return to normal mode |
+| `:w`    | Save                  |
+| `:q`    | Quit                  |
+| `:wq`   | Save and quit         |
+| `:q!`   | Quit without saving   |
+| `/text` | Search for `text`     |
+
+#### Vim: Important Concepts
+
+- `Modes`: Vim has normal mode and insert mode.
+- `Normal mode`: Used for commands such as save, quit, delete, and search.
+- `Insert mode`: Used for typing text.
+- `Vim vs micro`: `micro` is easier for beginners; Vim is more universal and powerful.
+
+---
+
+### Zed (`zed`)
+
+#### Zed: Overview
+
+Zed is a modern code editor focused on speed and collaboration.
+
+#### Zed: Why it's useful
+
+- A fast graphical editor for code and projects.
+- Useful alongside terminal tools such as `git`, `npm`, and `python`.
+- Can be launched from the terminal after adding it to your `PATH`.
+
+#### Zed: Installation and Verification Commands
+
+```sh
+# Installs Zed
+curl -f https://zed.dev/install.sh | sh
+
+# Adds Zed to your PATH for future Zsh sessions
+echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.zshrc
+
+# Reloads the Zsh configuration
+source ~/.zshrc
+
+# Verifies the installation and opens Zed
+zed --version
+zed
+```
+
+#### Zed: Simple Examples
+
+```sh
+# Shows the installed Zed version
+zed --version
+
+# Opens Zed
+zed
+
+# Opens the current folder as a project
+zed .
+
+# Opens a specific file
+zed file.txt
+```
+
+#### Zed: Essential Keystrokes
+
+Zed is interactive:
+
+| Key                | Action                   |
+| ------------------ | ------------------------ |
+| `Ctrl + O`         | Open a file or folder    |
+| `Ctrl + S`         | Save                     |
+| `Ctrl + P`         | Quickly open a file      |
+| `Ctrl + Shift + P` | Open the command palette |
+| `Ctrl + F`         | Search in the file       |
+
+#### Zed: Important Concepts
+
+- `Editor vs terminal`: Zed is a graphical code editor; Ghostty is a terminal application.
+- `PATH`: Adding `~/.local/bin` lets you run `zed` from the terminal.
+- `Project folder`: `zed .` opens your current folder as a project.
+
+---
+
+### uv (`uv`)
+
+#### uv: Overview
+
+`uv` is a fast Python package and project manager.
+
+#### uv: Why it's useful
+
+- Creates and manages Python project environments.
+- Installs dependencies quickly.
+- Useful for running Python tools without manually managing virtual environments.
+- Replaces or improves on many common `pip` and `venv` workflows.
+
+#### uv: Installation and Verification Commands
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv --version
+```
+
+#### uv: Simple Examples
+
+```sh
+# Shows the installed uv version
+uv --version
+
+# Installs dependencies for a project that uses uv
+uv sync
+
+# Runs Python inside the project environment
+uv run python --version
+
+# Starts Jupyter Notebook from the project environment
+uv run jupyter notebook
+```
+
+#### uv: Essential Keystrokes
+
+`uv` is non-interactive, so it has no essential keystrokes.
+
+#### uv: Important Concepts
+
+- `Project environment`: uv manages an environment for each project.
+- `uv sync`: Installs dependencies defined by the project.
+- `uv run`: Runs a command inside the uv-managed environment.
+- `uv vs pip`: uv can handle package installation much faster than traditional `pip` workflows.
+
+---
+
+### Ollama (`ollama`)
+
+#### Ollama: Overview
+
+Ollama runs local AI models on your machine from the command line.
+
+#### Ollama: Why it's useful
+
+- Lets you download and run models locally.
+- Useful for experimenting with local LLMs.
+- Provides a simple local API at `http://127.0.0.1:11434`.
+- Avoids needing a cloud API for basic local-model experiments.
+
+#### Ollama: Installation and Verification Commands
+
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+ollama --version
+```
+
+Check the Ollama service and local API:
+
+```sh
+systemctl status ollama
+curl http://127.0.0.1:11434
+```
+
+Start the Ollama service:
+
+```sh
+sudo systemctl start ollama
+```
+
+Stop the Ollama service:
+
+```sh
+sudo systemctl stop ollama
+```
+
+Prevent Ollama from starting automatically:
+
+```sh
+sudo systemctl disable --now ollama
+```
+
+Enable Ollama to start automatically after reboot:
+
+```sh
+sudo systemctl enable --now ollama
+```
+
+Common Ollama commands:
+
+```sh
+ollama pull qwen3:8b
+ollama run qwen3:8b
+ollama list
+ollama ps
+ollama stop qwen3:8b
+ollama rm qwen3:8b
+ollama show qwen3:8b
+ollama --version
+ollama help
+```
+
+#### Ollama: Simple Examples
+
+```sh
+# Downloads the qwen3:8b model
+ollama pull qwen3:8b
+
+# Runs the model interactively
+ollama run qwen3:8b
+
+# Lists downloaded models
+ollama list
+
+# Shows currently running models
+ollama ps
+```
+
+#### Ollama: Essential Keystrokes
+
+When running a model interactively:
+
+| Key        | Action                                   |
+| ---------- | ---------------------------------------- |
+| `Ctrl + D` | Exit the prompt                          |
+| `Ctrl + C` | Cancel the current generation or command |
+| `Enter`    | Send the prompt                          |
+
+#### Ollama: Important Concepts
+
+- `Model`: A downloaded AI model, such as `qwen3:8b`.
+- `Service`: Ollama runs as a background service.
+- `Local API`: Ollama listens on `127.0.0.1:11434`.
+- `Model storage`: Downloaded models can take significant disk space.
+
+---
+
+### DBeaver Community (`dbeaver`)
+
+#### DBeaver Community: Overview
+
+DBeaver Community is a graphical database client for working with many database systems.
+
+#### DBeaver Community: Why it's useful
+
+- Connects to many databases from one application.
+- Useful for browsing tables and running SQL queries.
+- Friendlier than command-line database clients for visual inspection.
+- Complements tools such as `mysql`, `psql`, and `aql`.
+
+#### DBeaver Community: Installation and Verification Commands
+
+```sh
+# Adds the DBeaver signing key
+sudo wget -q -O - https://dbeaver.io/debs/dbeaver.gpg.key \
+  | sudo gpg --dearmor -o /usr/share/keyrings/dbeaver.gpg.key
+
+# Adds the DBeaver Community repository
+echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" \
+  | sudo tee /etc/apt/sources.list.d/dbeaver.list
+
+# Installs and verifies DBeaver Community
+sudo apt update
+sudo apt install -y dbeaver-ce
+dbeaver-ce --version
+
+# Opens DBeaver
+dbeaver
+```
+
+Use `dbeaver -nosplash` if DBeaver crashes in `gtk_widget_realize()` while handling the splash screen.
+
+#### DBeaver Community: Simple Examples
+
+```sh
+# Shows the installed DBeaver version
+dbeaver-ce --version
+
+# Opens DBeaver
+dbeaver
+
+# Opens DBeaver without the splash screen
+dbeaver -nosplash
+```
+
+#### DBeaver Community: Essential Keystrokes
+
+DBeaver is interactive:
+
+| Key            | Action                            |
+| -------------- | --------------------------------- |
+| `Ctrl + Enter` | Execute the current SQL statement |
+| `Ctrl + S`     | Save script                       |
+| `Ctrl + O`     | Open file                         |
+| `Ctrl + F`     | Search                            |
+
+#### DBeaver Community: Important Concepts
+
+- `Connection`: Saved details for a database server.
+- `Driver`: Software DBeaver uses to connect to a database type.
+- `SQL editor`: Where you write and run queries.
+- `Splash workaround`: Use `-nosplash` if launch crashes around the splash screen.
+
+---
+
+### Studio 3T Community Edition (`studio-3t`)
+
+#### Studio 3T Community Edition: Overview
+
+Studio 3T Community Edition is a graphical client for MongoDB.
+
+#### Studio 3T Community Edition: Why it's useful
+
+- Makes browsing MongoDB databases easier.
+- Useful for viewing collections and documents.
+- Friendlier than using only the MongoDB shell for inspection.
+
+#### Studio 3T Community Edition: Installation and Verification Commands
+
+Request a download link from the [Studio 3T download page](https://robomongo.org/download.php).
+
+Once you receive the download link by email and download the archive:
+
+```sh
+cd ~/Downloads
+tar -xvzf studio-3t-community-edition-linux-x64.tar.gz
+./studio-3t-community-edition-linux-x64.sh
+```
+
+#### Studio 3T Community Edition: Simple Examples
+
+```sh
+# Moves to your Downloads folder
+cd ~/Downloads
+
+# Extracts the downloaded archive
+tar -xvzf studio-3t-community-edition-linux-x64.tar.gz
+
+# Runs the installer
+./studio-3t-community-edition-linux-x64.sh
+```
+
+#### Studio 3T Community Edition: Essential Keystrokes
+
+Studio 3T is a graphical application:
+
+| Key        | Action                                           |
+| ---------- | ------------------------------------------------ |
+| `Ctrl + O` | Open a file or dialog where supported            |
+| `Ctrl + F` | Search                                           |
+| `Ctrl + S` | Save the current editor or query where supported |
+
+#### Studio 3T Community Edition: Important Concepts
+
+- `MongoDB`: A document database that stores JSON-like documents.
+- `Collection`: Similar to a table in relational databases.
+- `Connection`: Saved MongoDB server details.
+- `Archive install`: The downloaded `.tar.gz` file must be extracted before running the installer.
+
+---
+
+### Okular PDF Reader (`okular`)
+
+#### Okular PDF Reader: Overview
+
+Okular is a PDF and document reader for Linux.
+
+#### Okular PDF Reader: Why it's useful
+
+- Opens PDFs and many other document formats.
+- Supports search, annotations, and page navigation.
+- Lightweight and practical for reading technical documents.
+
+#### Okular PDF Reader: Installation and Verification Commands
+
+```sh
+sudo apt install okular
+okular --version
+```
+
+#### Okular PDF Reader: Simple Examples
+
+```sh
+# Shows the installed Okular version
+okular --version
+
+# Opens Okular
+okular
+
+# Opens a specific PDF file
+okular file.pdf
+```
+
+#### Okular PDF Reader: Essential Keystrokes
+
+Okular is interactive:
+
+| Key         | Action        |
+| ----------- | ------------- |
+| `Ctrl + O`  | Open document |
+| `Ctrl + F`  | Search        |
+| `Page Down` | Next page     |
+| `Page Up`   | Previous page |
+| `Ctrl + Q`  | Quit          |
+
+#### Okular PDF Reader: Important Concepts
+
+- `PDF reader`: Okular is for viewing documents, not editing source files.
+- `Annotations`: You can highlight and add notes to supported documents.
+- `Search`: `Ctrl + F` is the fastest way to find text in long PDFs.
+
+---
+
+### Golang (`go`)
+
+#### Golang: Overview
+
+Go, also called Golang, is a programming language commonly used for backend services, command-line tools, and infrastructure software.
+
+#### Golang: Why it's useful
+
+- Produces fast standalone binaries.
+- Common for cloud, DevOps, and backend tools.
+- Includes built-in tooling for formatting, testing, and modules.
+
+#### Golang: Installation and Verification Commands
+
+```sh
+sudo apt install golang-go
+go version
+```
+
+#### Golang: Simple Examples
+
+```sh
+# Shows the installed Go version
+go version
+
+# Runs a Go program
+go run main.go
+
+# Runs tests in the current module
+go test ./...
+
+# Installs the Go language server
+go install golang.org/x/tools/gopls@latest
+```
+
+#### Golang: Essential Keystrokes
+
+`go` is non-interactive, so it has no essential keystrokes.
+
+#### Golang: Important Concepts
+
+- `Module`: A Go project is usually managed with a `go.mod` file.
+- `go run`: Builds and runs a program immediately.
+- `go install`: Installs Go command-line tools.
+- `$HOME/go/bin`: A common location for installed Go binaries.
+
+---
+
+### Timeshift (`timeshift`)
+
+#### Timeshift: Overview
+
+Timeshift creates system snapshots that can help restore your Ubuntu system after a bad update or configuration mistake.
+
+#### Timeshift: Why it's useful
+
+- Useful before major system changes.
+- Can restore system files to an earlier state.
+- Helps recover from broken packages or desktop configuration issues.
+- Complements backups, but does not replace backing up personal files.
+
+#### Timeshift: Installation and Verification Commands
+
+```sh
+sudo apt install timeshift
+timeshift --version
+```
+
+#### Timeshift: Simple Examples
+
+```sh
+# Shows the installed Timeshift version
+timeshift --version
+
+# Lists available snapshots
+sudo timeshift --list
+
+# Creates a snapshot using configured settings
+sudo timeshift --create
+
+# Starts the restore workflow
+sudo timeshift --restore
+```
+
+#### Timeshift: Important Concepts
+
+- `Snapshot`: A saved system state.
+- `System restore`: Restores system files, not necessarily all personal files.
+- `Before risky changes`: Create a snapshot before driver, desktop, or package changes.
+
+---
+
+### GNOME Tweaks (`gnome-tweaks`)
+
+#### GNOME Tweaks: Overview
+
+GNOME Tweaks is a graphical tool for changing GNOME desktop appearance and behavior settings that are not always available in the normal Settings application.
+
+#### GNOME Tweaks: Why it's useful
+
+- Makes font, theme, icon, and window settings easier to adjust.
+- Useful for desktop customization.
+- Works well with font and icon theme packages.
+
+#### GNOME Tweaks: Installation and Verification Commands
+
+```sh
+# Installs GNOME Tweaks
+sudo apt install gnome-tweaks
+gnome-tweaks --version
+
+# Installs and verifies Inter
+sudo apt install fonts-inter
+fc-list | grep -i "Inter"
+
+# Installs and verifies JetBrains Mono
+sudo apt install fonts-jetbrains-mono
+fc-list | grep -i "JetBrains"
+```
+
+Open **Tweaks → Fonts** and set:
+
+```text
+Interface Text     → Inter Regular 11.5
+Document Text      → Inter Regular 11.5
+Monospaced Text    → JetBrains Mono 11.5
+Hinting            → Full
+```
+
+Open **Tweaks** and set the appearance options:
+
+```text
+Cursor              → Adwaita (default)
+Icons               → Yaru-blue-dark
+Legacy Applications → Adwaita-dark
+```
+
+Tutorials:
+
+- [GNOME Tweaks tutorial 1](https://www.youtube.com/watch?v=gCbeyd0ITsQ)
+- [GNOME Tweaks tutorial 2](https://www.youtube.com/watch?v=uUg6OEswN9E)
+
+#### GNOME Tweaks: Simple Examples
+
+```sh
+# Opens GNOME Tweaks
+gnome-tweaks
+
+# Shows the installed version
+gnome-tweaks --version
+
+# Checks whether Inter fonts are installed
+fc-list | grep -i "Inter"
+
+# Checks whether JetBrains Mono fonts are installed
+fc-list | grep -i "JetBrains"
+```
+
+#### GNOME Tweaks: Important Concepts
+
+- `Fonts`: Interface, document, and monospace fonts affect different parts of the desktop.
+- `Hinting`: `Full` can make text sharper on some screens.
+- `Themes and icons`: Installed packages become selectable in Tweaks.
+
+---
+
+### Extension Manager (`gnome-shell-extension-manager`)
+
+#### Extension Manager: Overview
+
+Extension Manager installs and manages GNOME Shell extensions.
+
+#### Extension Manager: Why it's useful
+
+- Adds desktop features not included by default.
+- Lets you install, enable, disable, and update GNOME extensions.
+- Useful for dock behavior, blur effects, tiling, clipboard history, and system monitors.
+
+#### Extension Manager: Installation and Verification Commands
+
+```sh
+sudo apt install gnome-shell-extension-manager
+dpkg -l gnome-shell-extension-manager
+```
+
+Popular Extensions to Install and Enable:
+
+```text
+1. Blur my Shell
+2. Dash2Dock Animated
+3. Search Light (Optional)
+4. Add to Desktop (Optional)
+5. Forge (Optional)
+6. GNOME Fuzzy App Search
+7. Kiwi (is not apple)
+8. Clipboard Indicator (by Tudmotu)
+9. Kiwi Menu
+10. Compiz alike magic lamp effect
+11. System Monitor (by naimur900) / Vitals
+12. Tiling Shell
+13. Caffeine
+14. GSConnect
+15. Bluetooth battery indicator
+16. Just Perfection (Optional)
+```
+
+System Extensions to Disable:
+
+```text
+Ubuntu Dock
+```
+
+#### Extension Manager: Simple Examples
+
+```sh
+# Verifies that Extension Manager is installed
+dpkg -l gnome-shell-extension-manager
+
+# Opens Extension Manager
+gnome-shell-extension-manager
+
+# Lists installed GNOME extensions
+gnome-extensions list
+```
+
+#### Extension Manager: Important Concepts
+
+- `Extension`: A plugin that changes GNOME Shell behavior.
+- `Enable/disable`: Turn extensions on only when you need them.
+- `Compatibility`: Extensions may depend on your GNOME version.
+
+---
+
+### Software Properties GTK (`software-properties-gtk`)
+
+#### Software Properties GTK: Overview
+
+Software Properties GTK provides Ubuntu's graphical software sources and additional drivers settings.
+
+#### Software Properties GTK: Why it's useful
+
+- Helps manage software sources and drivers.
+- Useful for installing recommended GPU, Wi-Fi, or hardware drivers.
+- A graphical alternative to some `ubuntu-drivers` commands.
+
+#### Software Properties GTK: Installation and Verification Commands
+
+```sh
+sudo apt install software-properties-gtk
+```
+
+Search for **Additional Drivers**, open the application, and install any additional drivers available for your system.
+
+Command-line equivalent:
+
+```sh
+sudo ubuntu-drivers list
+sudo ubuntu-drivers install
+```
+
+#### Software Properties GTK: Simple Examples
+
+```sh
+# Opens Software Properties
+software-properties-gtk
+
+# Lists recommended drivers
+sudo ubuntu-drivers list
+
+# Installs recommended drivers
+sudo ubuntu-drivers install
+```
+
+#### Software Properties GTK: Important Concepts
+
+- `Additional Drivers`: Ubuntu's tool for proprietary or recommended hardware drivers.
+- `Drivers`: Needed for some GPUs, Wi-Fi cards, and other hardware.
+- `GUI vs CLI`: `ubuntu-drivers` performs the same kind of task from the terminal.
+
+---
+
+### Media Codecs (`ubuntu-restricted-extras`)
+
+#### Media Codecs: Overview
+
+`ubuntu-restricted-extras` installs common media codecs and related packages that Ubuntu may not include by default.
+
+#### Media Codecs: Why it's useful
+
+- Helps play more audio and video formats.
+- Useful after a fresh Ubuntu installation.
+- Improves compatibility with common media files.
+
+#### Media Codecs: Installation and Verification Commands
+
+```sh
+sudo apt install ubuntu-restricted-extras
+```
+
+#### Media Codecs: Simple Examples
+
+```sh
+# Installs common restricted media packages
+sudo apt install ubuntu-restricted-extras
+
+# Shows package details
+apt show ubuntu-restricted-extras
+
+# Checks whether the package is installed
+dpkg -l ubuntu-restricted-extras
+```
+
+#### Media Codecs: Essential Keystrokes
+
+Package installation may show license prompts:
+
+| Key          | Action                           |
+| ------------ | -------------------------------- |
+| `Tab`        | Move between prompt buttons      |
+| `Enter`      | Confirm the selected option      |
+| `Arrow keys` | Navigate options where available |
+
+#### Media Codecs: Important Concepts
+
+- `Restricted extras`: Packages not always installed by default because of licensing.
+- `Codec`: Software needed to decode audio and video formats.
+- `Fresh install`: This is often installed early in a new Ubuntu setup.
+
+---
+
+### VLC (`vlc`)
+
+#### VLC: Overview
+
+VLC is a media player that supports many audio and video formats.
+
+#### VLC: Why it's useful
+
+- Plays most common media files.
+- Useful when the default video player cannot open a file.
+- Supports subtitles, streams, playlists, and many formats.
+
+#### VLC: Installation and Verification Commands
+
+```sh
+sudo apt install vlc
+vlc --version
+```
+
+#### VLC: Simple Examples
+
+```sh
+# Shows the installed VLC version
+vlc --version
+
+# Opens VLC
+vlc
+
+# Plays a video file
+vlc video.mp4
+```
+
+#### VLC: Essential Keystrokes
+
+VLC is interactive:
+
+| Key        | Action            |
+| ---------- | ----------------- |
+| `Space`    | Play or pause     |
+| `F`        | Toggle fullscreen |
+| `M`        | Mute              |
+| `Ctrl + O` | Open file         |
+| `Ctrl + Q` | Quit              |
+
+#### VLC: Important Concepts
+
+- `Media player`: VLC is for playing audio and video files.
+- `Codecs`: VLC includes broad format support.
+- `Subtitles`: VLC can load subtitle files such as `.srt`.
+
+---
+
+### Firewall (`ufw`, `gufw`)
+
+#### Firewall: Overview
+
+UFW is Ubuntu's uncomplicated firewall. GUFW is a graphical interface for managing it.
+
+#### Firewall: Why it's useful
+
+- Helps control inbound network connections.
+- Simple enough for everyday desktop use.
+- Provides a graphical interface through the Firewall application.
+- Useful for allowing specific applications such as GSConnect.
+
+#### Firewall: Installation and Verification Commands
+
+```sh
+sudo apt install gufw
+ufw --version
+
+# Enables the firewall
+sudo ufw enable
+
+# Shows active firewall rules
+sudo ufw status verbose
+```
+
+You can also search for **Firewall** and enable it through the GUFW graphical interface.
+
+For the GSConnect extension:
+
+```sh
+sudo ufw allow 1714:1764/udp
+sudo ufw allow 1714:1764/tcp
+sudo ufw reload
+```
+
+For torrent clients, enable their ports manually through the Firewall application or with UFW rules.
+
+#### Firewall: Simple Examples
+
+```sh
+# Shows firewall status and rules
+sudo ufw status verbose
+
+# Enables the firewall
+sudo ufw enable
+
+# Allows a TCP port range
+sudo ufw allow 1714:1764/tcp
+
+# Reloads firewall rules
+sudo ufw reload
+```
+
+#### Firewall: Important Concepts
+
+- `UFW`: Command-line firewall tool.
+- `GUFW`: Graphical interface for UFW.
+- `Port`: A numbered network entry point used by applications.
+- `Allow rules`: Needed when a trusted application must receive incoming connections.
+
+---
+
+### TLP (`tlp`)
+
+#### TLP: Overview
+
+TLP is a Linux power-saving tool, especially useful for laptops.
+
+#### TLP: Why it's useful
+
+- Helps improve battery life.
+- Applies power-saving settings automatically.
+- Useful on laptops without much manual tuning.
+
+#### TLP: Installation and Verification Commands
+
+```sh
+sudo apt install tlp tlp-rdw
+systemctl status tlp
+```
+
+If the service is stopped, start it:
+
+```sh
+sudo systemctl start tlp
+```
+
+Enable it to start automatically at boot:
+
+```sh
+sudo systemctl enable tlp
+```
+
+Start the service now and enable it at boot:
+
+```sh
+sudo systemctl enable --now tlp
+```
+
+Check TLP status:
+
+```sh
+sudo tlp-stat -s
+```
+
+#### TLP: Simple Examples
+
+```sh
+# Shows whether the TLP service is running
+systemctl status tlp
+
+# Starts TLP now and enables it at boot
+sudo systemctl enable --now tlp
+
+# Shows TLP status information
+sudo tlp-stat -s
+```
+
+#### TLP: Essential Keystrokes
+
+`tlp` and `systemctl` are non-interactive command-line utilities, so they have no essential keystrokes.
+
+#### TLP: Important Concepts
+
+- `Service`: TLP runs in the background.
+- `Enable vs start`: `enable` starts the service at boot; `start` starts it now.
+- `Battery tuning`: TLP applies power profiles automatically.
+
+---
+
+### Thermald (`thermald`)
+
+#### Thermald: Overview
+
+Thermald is a Linux service that helps manage CPU temperature and thermal behavior.
+
+#### Thermald: Why it's useful
+
+- Helps reduce overheating.
+- Can improve thermal stability on laptops.
+- Runs automatically in the background after installation.
+
+#### Thermald: Installation and Verification Commands
+
+```sh
+sudo apt install thermald
+sudo systemctl enable --now thermald
+```
+
+#### Thermald: Simple Examples
+
+```sh
+# Shows whether Thermald is running
+systemctl status thermald
+
+# Starts Thermald now and enables it at boot
+sudo systemctl enable --now thermald
+
+# Restarts the service
+sudo systemctl restart thermald
+```
+
+#### Thermald: Essential Keystrokes
+
+`thermald` is managed through non-interactive command-line utilities, so it has no essential keystrokes.
+
+#### Thermald: Important Concepts
+
+- `Thermal management`: Helps control heat by applying system thermal policies.
+- `Service`: Thermald runs in the background.
+- `Enable at boot`: `enable --now` starts the service now and on future boots.
+
+---
+
+### Synaptic (`synaptic`)
+
+#### Synaptic: Overview
+
+Synaptic is a graphical package manager for native Ubuntu `.deb` packages.
+
+#### Synaptic: Why it's useful
+
+- Gives detailed control over package installation and removal.
+- Better for native `.deb` package management than the App Center.
+- Useful for searching package names, versions, and dependencies.
+- Complements `apt`.
+
+#### Synaptic: Installation and Verification Commands
+
+```sh
+sudo apt install synaptic
+```
+
+#### Synaptic: App Center vs Synaptic
+
+```text
+App Center:
+- Installs applications.
+- Good for Snap packages, but less suitable for detailed .deb package management.
+- Snap packages are more isolated and can use more storage or start more slowly.
+
+Synaptic:
+- Gives detailed control over native .deb packages.
+- Lets you search, install, remove, and manage packages.
+```
+
+#### Synaptic: Simple Examples
+
+```sh
+# Opens Synaptic
+
+synaptic
+
+# Installs Synaptic
+sudo apt install synaptic
+
+# Searches for a package from the terminal
+sudo apt search package-name
+```
+
+#### Synaptic: Essential Keystrokes
+
+Synaptic is interactive:
+
+| Key        | Action                        |
+| ---------- | ----------------------------- |
+| `Ctrl + F` | Search packages               |
+| `Ctrl + R` | Reload package information    |
+| `Ctrl + P` | Apply marked changes          |
+| `Esc`      | Close dialogs where supported |
+
+#### Synaptic: Important Concepts
+
+- `.deb package`: Native Debian and Ubuntu package format.
+- `Snap`: A separate application package format that is often larger and more isolated.
+- `Package manager`: A tool used to install, remove, and update software.
+- `Synaptic vs apt`: Synaptic is a graphical package manager; `apt` is terminal-based.
+
+---
+
+### Preload (`preload`)
+
+#### Preload: Recommendation
+
+This tool is only recommended for low-performance or older systems.
+
+#### Preload: Overview
+
+Preload watches which applications you use often and tries to keep useful parts ready in RAM.
+
+#### Preload: Why it's useful
+
+- Can make frequently used applications open faster on older HDD-based systems.
+- Works automatically after installation.
+- Usually not recommended on newer SSD systems because gains are small and it uses RAM, CPU, and disk activity.
+
+#### Preload: Installation and Verification Commands
+
+Install and check the service:
+
+```sh
+sudo apt install preload
+systemctl status preload
+```
+
+Remove Preload:
+
+```sh
+sudo apt remove preload
+sudo apt purge preload
+sudo apt autoremove
+systemctl status preload
+```
+
+#### Preload: Simple Examples
+
+```sh
+# Shows whether Preload is running
+systemctl status preload
+
+# Installs Preload
+sudo apt install preload
+
+# Removes Preload and its generated configuration files
+sudo apt purge preload
+```
+
+#### Preload: Essential Keystrokes
+
+`preload` is managed through non-interactive command-line utilities, so it has no essential keystrokes.
+
+#### Preload: Important Concepts
+
+- `HDD vs SSD`: Preload is more useful on older hard drives than modern SSDs.
+- `RAM usage`: Preload uses memory to speed up application startup.
+- `Service`: It runs in the background after installation.
+
+---
+
+### Papirus Icon Theme
+
+#### Papirus Icon Theme: Overview
+
+Papirus is a popular icon theme for Linux desktops.
+
+#### Papirus Icon Theme: Why it's useful
+
+- Gives Ubuntu a cleaner, more customized icon style.
+- Works with GNOME Tweaks.
+- Easy to install from Ubuntu packages.
+
+#### Papirus Icon Theme: Installation and Verification Commands
+
+```sh
+sudo apt install papirus-icon-theme
+```
+
+Open GNOME Tweaks and change the icon theme to `Papirus`.
+
+#### Papirus Icon Theme: Simple Examples
+
+```sh
+# Installs the Papirus icon theme
+sudo apt install papirus-icon-theme
+
+# Opens GNOME Tweaks so you can select Papirus
+gnome-tweaks
+
+# Checks whether Papirus icon folders are installed
+ls /usr/share/icons | grep -i papirus
+```
+
+#### Papirus Icon Theme: Important Concepts
+
+- `Icon theme`: Controls how application and system icons look.
+- `GNOME Tweaks`: The easiest place to switch icon themes.
+- `System icon folder`: Themes are usually stored under `/usr/share/icons`.
+
+---
+
+### BleachBit (`bleachbit`)
+
+#### BleachBit: Overview
+
+BleachBit is a cleanup tool for removing caches, temporary files, and other unnecessary data.
+
+#### BleachBit: Why it's useful
+
+- Frees disk space.
+- Helps clean browser and application caches.
+- Useful for occasional system cleanup.
+
+#### BleachBit: Installation and Verification Commands
+
+```sh
+sudo apt install bleachbit
+bleachbit --version
+```
+
+#### BleachBit: Simple Examples
+
+```sh
+# Opens BleachBit as a normal user
+bleachbit
+
+# Opens BleachBit with administrator access
+sudo bleachbit
+
+# Shows the installed version
+bleachbit --version
+```
+
+#### BleachBit: Important Concepts
+
+- `Cache`: Temporary files that applications can recreate later.
+- `Preview first`: Review what will be deleted before cleaning.
+- `Normal vs root cleanup`: Use normal mode for user files; use administrator mode carefully.
+
+---
+
+### XAMPP (`lampp`)
+
+#### XAMPP: Overview
+
+XAMPP is a local web-development stack that includes Apache, MariaDB, PHP, and related tools.
+
+#### XAMPP: Why it's useful
+
+- A quick way to run PHP/MySQL-style projects locally.
+- Includes Apache and phpMyAdmin.
+- Useful for learning or testing traditional web applications.
+
+#### XAMPP: Installation and Verification Commands
+
+Download the Linux installer from the official [Apache Friends download page](https://www.apachefriends.org/download.html).
+
+You can also download a specific version with `wget`:
+
+```sh
+wget https://www.apachefriends.org/xampp-files/8.2.12/xampp-linux-x64-8.2.12-0-installer.run
+```
+
+Check the official website for the latest version before downloading.
+
+Make the installer executable:
+
+```sh
+cd ~/Downloads
+chmod +x xampp-linux-x64-*-installer.run
+```
+
+Run the graphical installer:
+
+```sh
+sudo ./xampp-linux-x64-*-installer.run
+```
+
+For a terminal-only installation:
+
+```sh
+sudo ./xampp-linux-x64-*-installer.run --mode text
+```
+
+Start XAMPP and check its status:
+
+```sh
+sudo /opt/lampp/lampp start
+sudo /opt/lampp/lampp status
+```
+
+Open these addresses in your browser to verify the installation:
+
+```text
+http://localhost
+http://localhost/phpmyadmin
+```
+
+Manage XAMPP services:
+
+```sh
+sudo /opt/lampp/lampp start
+sudo /opt/lampp/lampp stop
+sudo /opt/lampp/lampp restart
+```
+
+Create a local web project:
+
+```sh
+sudo mkdir /opt/lampp/htdocs/myproject
+```
+
+Then open:
+
+```text
+http://localhost/myproject
+```
+
+If Apache does not start, another web server may already be using port `80`:
+
+```sh
+sudo systemctl stop apache2
+sudo systemctl stop nginx
+sudo /opt/lampp/lampp restart
+```
+
+Quick setup summary:
+
+```sh
+cd ~/Downloads
+chmod +x xampp-linux-x64-*-installer.run
+sudo ./xampp-linux-x64-*-installer.run
+sudo /opt/lampp/lampp start
+```
+
+Then open:
+
+```text
+http://localhost
+```
+
+#### XAMPP: Simple Examples
+
+```sh
+# Starts XAMPP services
+sudo /opt/lampp/lampp start
+
+# Shows XAMPP service status
+sudo /opt/lampp/lampp status
+
+# Stops XAMPP services
+sudo /opt/lampp/lampp stop
+
+# Creates a local web project folder
+sudo mkdir /opt/lampp/htdocs/myproject
+```
+
+#### XAMPP: Essential Keystrokes
+
+The XAMPP installer is interactive:
+
+| Key        | Action                         |
+| ---------- | ------------------------------ |
+| `Tab`      | Move between installer buttons |
+| `Enter`    | Confirm the selected option    |
+| `Ctrl + C` | Cancel the terminal command    |
+
+#### XAMPP: Important Concepts
+
+- `Apache`: The web server used by XAMPP.
+- `phpMyAdmin`: A browser-based database administration tool.
+- `htdocs`: The folder from which local web projects are served.
+- `Port 80`: The default web-server port; conflicts can prevent Apache from starting.
 
 ---
