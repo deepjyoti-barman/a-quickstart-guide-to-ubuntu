@@ -78,7 +78,7 @@
     - [Synaptic](#synaptic-synaptic)
     - [Preload](#preload-preload)
     - [Papirus Icon Theme](#papirus-icon-theme)
-    - [BleachBit](#bleachbit-bleachbit)\
+    - [BleachBit](#bleachbit-bleachbit)
     - [XAMPP](#xampp-lampp)
 
 ## Set Up Ubuntu, Resolve Issues and Tweaks
