@@ -1,0 +1,1195 @@
+# Jupyter Notebook
+
+## Table of Contents
+
+- [Jupyter Notebook](#jupyter-notebook)
+  - [Table of Contents](#table-of-contents)
+  - [Install Jupyter Notebook Package](#install-jupyter-notebook-package)
+    - [Python: Install Jupyter Notebook](#python-install-jupyter-notebook)
+      - [Python: Create a New Project](#python-create-a-new-project)
+      - [Python: Clone an Existing Project from GitHub](#python-clone-an-existing-project-from-github)
+    - [Java: Install Jupyter Notebook](#java-install-jupyter-notebook)
+      - [Java: Create a New Project](#java-create-a-new-project)
+      - [Java: Clone an Existing Project from GitHub](#java-clone-an-existing-project-from-github)
+    - [TypeScript: Install Jupyter Notebook](#typescript-install-jupyter-notebook)
+      - [TypeScript: Create a New Project](#typescript-create-a-new-project)
+      - [TypeScript: Clone an Existing Project from GitHub](#typescript-clone-an-existing-project-from-github)
+    - [JavaScript: Install Jupyter Notebook](#javascript-install-jupyter-notebook)
+      - [JavaScript: Create a New Project](#javascript-create-a-new-project)
+      - [JavaScript: Clone an Existing Project from GitHub](#javascript-clone-an-existing-project-from-github)
+    - [Golang: Install Jupyter Notebook](#golang-install-jupyter-notebook)
+      - [Golang: Create a New Project](#golang-create-a-new-project)
+      - [Golang: Clone an Existing Project from GitHub](#golang-clone-an-existing-project-from-github)
+  - [Jupyter Packages Comparison](#jupyter-packages-comparison)
+  - [Recommendation for the Right Jupyter Packages](#recommendation-for-the-right-jupyter-packages)
+  - [Installation Commands for Jupyter Packages](#installation-commands-for-jupyter-packages)
+  - [Visual Comparison of Jupyter Packages](#visual-comparison-of-jupyter-packages)
+  - [Modes in Jupyter Notebook](#modes-in-jupyter-notebook)
+  - [Command Mode Shortcuts](#command-mode-shortcuts-press-esc-first)
+    - [Navigation](#navigation)
+    - [Cell Operations](#cell-operations)
+    - [Cell Type Conversion](#cell-type-conversion)
+    - [Running Cells](#running-cells)
+    - [View and Interface](#view-and-interface)
+    - [Kernel Operations](#kernel-operations)
+    - [Selection and Search](#selection-and-search)
+    - [Help and Other](#help-and-other)
+  - [Edit Mode Shortcuts](#edit-mode-shortcuts-press-enter-first)
+    - [Basic Editing](#basic-editing)
+    - [Code Manipulation](#code-manipulation)
+    - [Running Code](#running-code)
+    - [Switching Modes](#switching-modes)
+  - [JupyterLab-Specific Shortcuts](#jupyterlab-specific-shortcuts)
+    - [Additional JupyterLab Features](#additional-jupyterlab-features)
+    - [Tab Management](#tab-management-jupyterlab)
+  - [Magic Commands](#magic-commands-type-in-cell)
+    - [Timing and Profiling](#timing-and-profiling)
+    - [Environment and Variables](#environment-and-variables)
+    - [Code Execution](#code-execution)
+    - [Debugging](#debugging)
+    - [System Commands](#system-commands)
+    - [Other Useful Magic](#other-useful-magic)
+  - [Markdown Shortcuts](#markdown-shortcuts-in-markdown-cells)
+    - [Headers](#headers)
+    - [Text Formatting](#text-formatting)
+    - [Lists](#lists)
+    - [Links and Images](#links-and-images)
+    - [Code Blocks](#code-blocks)
+    - [Math (LaTeX)](#math-latex)
+  - [Pro Tips](#pro-tips)
+    - [Quick Tips](#quick-tips)
+    - [Productivity Hacks](#productivity-hacks)
+    - [Common Workflows](#common-workflows)
+  - [macOS-Specific Key Notes](#macos-specific-key-notes)
+  - [Customizing Shortcuts](#customizing-shortcuts)
+  - [Essential Shortcuts Summary](#essential-shortcuts-summary-most-used)
+
+## Install Jupyter Notebook Package
+
+![installation](resources/venv-and-pip-vs-uv-p1.png)
+![additional-operations](resources/venv-and-pip-vs-uv-p2.png)
+![key-differences](resources/venv-and-pip-vs-uv-p3.png)
+
+### Python: Install Jupyter Notebook
+
+#### Python: Create a New Project
+
+```bash
+# Check if Python is installed on your system
+python3 --version
+
+# Update system packages and Python
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Create a project directory and navigate inside it
+mkdir python-notebook
+cd python-notebook
+
+# Create a project with uv
+uv init
+
+# Add Jupyter Notebook as dependency
+uv add notebook
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Black Formatter (Optional)
+# 2. Jupyter
+# 3. Pylance
+# 4. Python
+# 5. Python Debugger
+# 6. Python Environments
+
+# Once asked to select a Kernel
+# Choose: 'Python Environments...' -> python-notebook (Python 3.x) .venv/bin/python
+```
+
+#### Python: Clone an Existing Project from GitHub
+
+```bash
+# Check if Python is installed on your system
+python3 --version
+
+# Update system packages and Python
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Clone the existing project from GitHub
+git clone <GITHUB_REPOSITORY_URL>
+
+# Navigate inside the cloned project
+cd <PROJECT_NAME>
+
+# Install the project's dependencies and create the virtual environment
+uv sync
+
+# (Optional) Launch Jupyter Notebook and check if it is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Black Formatter (Optional)
+# 2. Jupyter
+# 3. Pylance
+# 4. Python
+# 5. Python Debugger
+# 6. Python Environments
+
+# Once asked to select a Kernel
+# Choose: 'Python Environments...' -> <PROJECT_NAME> (Python <VERSION>) .venv/bin/python
+
+# If the existing project doesn't already have Jupyter Notebook as a dependency, add it with:
+uv add notebook
+
+# Then launch it with:
+uv run jupyter notebook
+
+# Workflow: GitHub → git clone → cd project → uv sync → code . → select .venv kernel
+```
+
+### Java: Install Jupyter Notebook
+
+#### Java: Create a New Project
+
+```bash
+# Check if Java is installed on your system
+java --version
+javac --version
+
+# If Java is not installed, install the latest LTS version of Java (Java 11+)
+sudo apt update
+sudo apt install -y openjdk-21-jdk curl unzip
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Create a project directory and navigate inside it
+mkdir java-notebook
+cd java-notebook
+
+# Create a project with uv
+uv init
+
+# Add Jupyter Notebook as dependency
+uv add notebook
+
+# Install IJava using pre-built installer
+curl -L -o ijava.zip https://github.com/SpencerPark/IJava/releases/download/v1.3.0/IJava-1.3.0.zip
+
+# Unzip it and navigate to the extracted directory
+unzip ijava.zip -d ijava
+cd ijava
+
+# Run the installer with the --user flag to install the kernel
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/java
+uv run python install.py --user
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. Java (Recommended) (by Oracle Corporation)
+# 4. Extension Pack for Java (Optional if #3 is installed)
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Java /java
+```
+
+#### Java: Clone an Existing Project from GitHub
+
+```bash
+# Check if Java is installed on your system
+java --version
+javac --version
+
+# If Java is not installed, install the latest LTS version of Java (Java 11+)
+sudo apt update
+sudo apt install -y openjdk-21-jdk curl unzip
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Clone the existing project from GitHub
+git clone <GITHUB_REPOSITORY_URL>
+
+# Navigate inside the cloned project
+cd <PROJECT_NAME>
+
+# Install the project's dependencies and create the virtual environment
+uv sync
+
+# (Optional) Install Jupyter Notebook as a dependency if it is not already present
+# If the cloned project already has notebook declared in pyproject.toml, you can skip
+uv add notebook
+
+# Install IJava using pre-built installer
+curl -L -o ijava.zip https://github.com/SpencerPark/IJava/releases/download/v1.3.0/IJava-1.3.0.zip
+
+# Unzip it and navigate to the extracted directory
+unzip ijava.zip -d ijava
+
+# Run the installer with the --user flag to install the kernel
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/java
+uv run python ijava/install.py --user
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# Remove the downloaded files
+rm -rf ijava ijava.zip
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. Java (Recommended) (by Oracle Corporation)
+# 4. Extension Pack for Java (Optional if #3 is installed)
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Java /java
+```
+
+### TypeScript: Install Jupyter Notebook
+
+#### TypeScript: Create a New Project
+
+```bash
+# Check if Node.js is installed on your system (preferably the LTS version)
+node -v
+npm -v
+
+# If Node.js is not installed, install the latest version of nvm and the latest LTS version of Node.js
+sudo apt update
+sudo apt install -y curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+exec "$SHELL"
+nvm --version
+nvm install --lts
+nvm use --lts
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Create a project directory and navigate inside it
+mkdir typescript-notebook
+cd typescript-notebook
+
+# Create a project with uv
+uv init
+
+# Add Jupyter Notebook as dependency
+uv add notebook
+
+# Install Deno
+curl -fsSL https://deno.land/install.sh | sh
+exec "$SHELL"
+deno --version
+
+# Install the Deno Jupyter kernel
+# During installation process when asked add deno's path into ~/.zshrc or ~/.bashrc
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/deno
+deno jupyter --install
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. ESLint
+# 4. Babel JavaScript
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Deno ~/.deno/bin/deno
+```
+
+#### TypeScript: Clone an Existing Project from GitHub
+
+```bash
+# Check if Node.js is installed on your system (preferably the LTS version)
+node -v
+npm -v
+
+# If Node.js is not installed, install the latest version of nvm and the latest LTS version of Node.js
+sudo apt update
+sudo apt install -y curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+exec "$SHELL"
+nvm --version
+nvm list
+nvm install --lts
+nvm use --lts
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Clone the existing project from GitHub
+git clone <GITHUB_REPOSITORY_URL>
+
+# Navigate inside the cloned project
+cd <PROJECT_NAME>
+
+# Install the project's dependencies and create the virtual environment
+uv sync
+
+# (Optional) Install Jupyter Notebook as a dependency if it is not already present
+# If the cloned project already has notebook declared in pyproject.toml, you can skip
+uv add notebook
+
+# Install Deno
+curl -fsSL https://deno.land/install.sh | sh
+exec "$SHELL"
+deno --version
+
+# Install the Deno Jupyter kernel
+# During installation process when asked add deno's path into ~/.zshrc or ~/.bashrc
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/deno
+deno jupyter --install
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. ESLint
+# 4. Babel JavaScript
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Deno ~/.deno/bin/deno
+```
+
+### JavaScript: Install Jupyter Notebook
+
+#### JavaScript: Create a New Project
+
+```bash
+# Even though IJavaScript is the stable JavaScript kernel based on Node.js for Jupyter
+# But we are not recommending it because of complexity of setup + it does not support TypeScript
+
+# Check if Node.js is installed on your system (preferably the LTS version)
+node -v
+npm -v
+
+# Check the installed Node.js version; if it is greater than 20, install Node.js 20 LTS via nvm
+# Node.js 24 LTS is not supported by the ijavascript package
+# Also do the same if you do not have any version of Node.js installed on your system
+sudo apt update
+sudo apt install -y curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+exec "$SHELL"
+nvm --version
+nvm list
+nvm install 20
+nvm use 20
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Create a project directory and navigate inside it
+mkdir javascript-notebook
+cd javascript-notebook
+
+# Create a project with uv
+uv init
+
+# Add Jupyter Notebook as dependency
+uv add notebook
+
+# Install ZeroMQ and pkg-config (required dependencies for the IJavascript package)
+sudo apt install -y libzmq3-dev pkg-config build-essential python3
+
+# Install IJavascript globally
+npm install -g ijavascript
+
+# Install the kernel locally
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/javascript
+ijsinstall --install=local
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# Update the correct executable in the kernel.json
+nano ~/.local/share/jupyter/kernels/javascript/kernel.json
+
+# Original content of kernel.json
+{
+  "argv": [
+    "ijskernel",
+    "--hide-undefined",
+    "{connection_file}",
+    "--protocol=5.1"
+  ],
+  "display_name": "JavaScript (Node.js)",
+  "language": "javascript"
+}
+
+# Updated content of kernel.json
+# Replace v20.19.6 with the Node.js 20 version shown by: node -v
+{
+  "argv": [
+    "/home/<YOUR_USERNAME>/.nvm/versions/node/v20.19.6/bin/node",
+    "/home/<YOUR_USERNAME>/.nvm/versions/node/v20.19.6/bin/ijskernel",
+    "--hide-undefined",
+    "{connection_file}",
+    "--protocol=5.1"
+  ],
+  "display_name": "JavaScript (Node.js)",
+  "language": "javascript"
+}
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. ESLint
+# 4. Babel JavaScript
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> JavaScript (Node.js) ~/.nvm/versions/node/v20.19.6/bin/node
+```
+
+#### JavaScript: Clone an Existing Project from GitHub
+
+```bash
+# Even though IJavaScript is the stable JavaScript kernel based on Node.js for Jupyter
+# But we are not recommending it because of complexity of setup + it does not support TypeScript
+
+# Check if Node.js is installed on your system (preferably the LTS version)
+node -v
+npm -v
+
+# Check the installed Node.js version; if it is greater than 24, install Node.js 20 LTS via nvm
+# Node.js 24 LTS is not supported by the ijavascript package
+# Also do the same if you do not have any version of Node.js installed on your system
+sudo apt update
+sudo apt install -y curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+exec "$SHELL"
+nvm --version
+nvm list
+nvm install 20
+nvm use 20
+
+# Install uv globally (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Clone the existing project from GitHub
+git clone <GITHUB_REPOSITORY_URL>
+
+# Navigate inside the cloned project
+cd <PROJECT_NAME>
+
+# Install the project's dependencies and create the virtual environment
+uv sync
+
+# (Optional) Add Jupyter Notebook as a dependency if it is not already present
+# If the cloned project already has notebook declared in pyproject.toml, you can skip
+uv add notebook
+
+# Install ZeroMQ and pkg-config (required dependencies for the IJavascript package)
+sudo apt install -y libzmq3-dev pkg-config build-essential python3
+
+# Install IJavascript globally
+npm install -g ijavascript
+
+# Install the kernel locally
+# NOTE: Installs the kernel inside ~/.local/share/jupyter/kernels/javascript
+ijsinstall --install=local
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# Update the correct executable in the kernel.json
+nano ~/.local/share/jupyter/kernels/javascript/kernel.json
+
+# Original content of kernel.json
+{
+  "argv": [
+    "ijskernel",
+    "--hide-undefined",
+    "{connection_file}",
+    "--protocol=5.1"
+  ],
+  "display_name": "JavaScript (Node.js)",
+  "language": "javascript"
+}
+
+# Updated content of kernel.json
+{
+  "argv": [
+    "/home/<YOUR_USERNAME>/.nvm/versions/node/v20.x.x/bin/node",
+    "/home/<YOUR_USERNAME>/.nvm/versions/node/v20.x.x/bin/ijskernel",
+    "--hide-undefined",
+    "{connection_file}",
+    "--protocol=5.1"
+  ],
+  "display_name": "JavaScript (Node.js)",
+  "language": "javascript"
+}
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. ESLint
+# 4. Babel JavaScript
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> JavaScript (Node.js) ~/.nvm/versions/node/v20.x.x/bin/node
+```
+
+### Golang: Install Jupyter Notebook
+
+#### Golang: Create a New Project
+
+```bash
+# Make sure you already have Go installed
+go version
+
+# If Go is not installed, install it
+sudo apt update
+sudo apt install -y golang-go
+
+# Install uv globally and verify the installation (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Create a project directory and navigate inside it
+mkdir golang-notebook
+cd golang-notebook
+
+# Create a project with uv
+uv init
+
+# Add Jupyter Notebook as dependency
+uv add notebook
+
+# Install Go Jupyter Kernel (Gophernotes)
+# This installs the binary into: $HOME/go/bin/gonb
+go install github.com/janpfeifer/gonb@latest
+
+# Add gonb to PATH
+# Append the following line in ~/.zshrc
+echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# Install Go kernel into Jupyter
+gonb --install
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# (Recommended) Install useful Go packages
+# Improves autocomplete & analysis
+go install golang.org/x/tools/cmd/goimports@latest
+go install golang.org/x/tools/gopls@latest
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. Go
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Go (gonb) ~/go/bin/gonb
+```
+
+#### Golang: Clone an Existing Project from GitHub
+
+```bash
+# Make sure you already have Go installed
+go version
+
+# If Go is not installed, install it
+sudo apt update
+sudo apt install -y golang-go
+
+# Install uv globally and verify the installation (Ubuntu)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+exec "$SHELL"
+uv --version
+
+# Clone the existing project from GitHub
+git clone <GITHUB_REPOSITORY_URL>
+
+# Navigate inside the cloned project
+cd <PROJECT_NAME>
+
+# Install the project's dependencies and create the virtual environment
+uv sync
+
+# (Optional) Add Jupyter Notebook as a dependency if it is not already present
+# If the cloned project already has notebook declared in pyproject.toml, you can skip
+uv add notebook
+
+# Install Go Jupyter Kernel (Gophernotes)
+# This installs the binary into: $HOME/go/bin/gonb
+go install github.com/janpfeifer/gonb@latest
+
+# Add gonb to PATH
+# Append the following line in ~/.zshrc
+echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# Install Go kernel into Jupyter
+gonb --install
+
+# Verify the kernel installation
+uv run jupyter kernelspec list
+
+# (Recommended) Install useful Go packages
+# Improves autocomplete & analysis
+go install golang.org/x/tools/cmd/goimports@latest
+go install golang.org/x/tools/gopls@latest
+
+# (Optional) Launch and check if jupyter notebook is installed correctly
+uv run jupyter notebook
+
+# Open up the project in VSCode
+code .
+
+# Install the following VSCode extensions
+# 1. Prettier (Optional)
+# 2. Jupyter
+# 3. Go
+
+# Once asked to select a Kernel
+# Choose: 'Jupyter Kernel...' -> Go (gonb) ~/go/bin/gonb
+```
+
+## Jupyter Packages Comparison
+
+| Feature                          | `uv add jupyter`                                            | `uv add notebook`             | `uv add jupyterlab`                   |
+| -------------------------------- | ----------------------------------------------------------- | ----------------------------- | ------------------------------------- |
+| **What it installs**             | Meta-package (includes both notebook + console + qtconsole) | Classic Jupyter Notebook only | Modern JupyterLab interface only      |
+| **Interface**                    | Classic Notebook UI                                         | Classic Notebook UI           | Modern tabbed IDE-like UI             |
+| **File browser**                 | Basic                                                       | Basic                         | Advanced with file manager            |
+| **Extensions**                   | Limited                                                     | Limited                       | Rich extension ecosystem              |
+| **Tabs/Multiple notebooks**      | No (one tab per notebook)                                   | No (one tab per notebook)     | Yes (multiple tabs in one window)     |
+| **Terminal**                     | No                                                          | No                            | Yes (integrated terminal)             |
+| **Text editor**                  | No                                                          | No                            | Yes (built-in code editor)            |
+| **Themes**                       | Basic                                                       | Basic                         | Customizable themes                   |
+| **Layout**                       | Fixed                                                       | Fixed                         | Flexible (drag & drop panes)          |
+| **Package size**                 | ~100MB (includes extras)                                    | ~50MB                         | ~80MB                                 |
+| **Best for**                     | Legacy projects needing all Jupyter tools                   | Simple notebook-only needs    | Modern development & data science     |
+| **Command to run**               | `uv run jupyter notebook`                                   | `uv run jupyter notebook`     | `uv run jupyter lab`                  |
+| **Modern features**              | No                                                          | No                            | Yes (debugger, Git integration, etc.) |
+| **Learning curve**               | Easy                                                        | Easy                          | Moderate                              |
+| **Performance**                  | Standard                                                    | Standard                      | Faster & more responsive              |
+| **Recommended for new projects** | No (bloated)                                                | Only if you prefer classic UI | Yes (modern standard)                 |
+
+## Recommendation for the Right Jupyter Packages
+
+### Choose `jupyterlab` if
+
+- ✅ Starting a new project
+- ✅ Want modern IDE-like features
+- ✅ Need multiple notebooks/files open simultaneously
+- ✅ Want built-in terminal and text editor
+- ✅ Plan to use extensions
+
+### Choose `notebook` if
+
+- ✅ Prefer the classic simple interface
+- ✅ Working on legacy projects
+- ✅ Have simpler notebook needs
+- ✅ Want minimal package size
+
+### Choose `jupyter` if
+
+- ⚠️ Need the full Jupyter stack (notebook + console + qtconsole)
+- ⚠️ Working with very old projects
+- ❌ Generally not recommended for new projects (unnecessary bloat)
+
+## Installation Commands for Jupyter Packages
+
+```bash
+# Recommended: JupyterLab (modern)
+# Add as developer dependency: uv add --dev jupyterlab
+uv add jupyterlab
+uv run jupyter lab
+
+# Classic Notebook interface
+uv add notebook
+uv run jupyter notebook
+
+# Full Jupyter package (not recommended)
+uv add jupyter
+uv run jupyter notebook  # or jupyter lab if installed
+```
+
+## Visual Comparison of Jupyter Packages
+
+### Classic Notebook (`notebook`)
+
+- Single notebook per browser tab
+- Simple toolbar at top
+- Basic file browser
+- Traditional look and feel
+
+### JupyterLab (`jupyterlab`)
+
+- Multiple notebooks in tabs
+- Collapsible sidebar
+- File browser + running kernels panel
+- Integrated terminal
+- Extension manager
+- Modern VS Code-like interface
+- Drag-and-drop layout customization
+
+## Modes in Jupyter Notebook
+
+Jupyter notebooks have two modes:
+
+- **Command Mode** (blue cell border) - Press `Esc` to enter
+- **Edit Mode** (green cell border) - Press `Enter` to enter
+
+---
+
+## Command Mode Shortcuts (Press `Esc` first)
+
+### Navigation
+
+| Shortcut                  | Action                 |
+| ------------------------- | ---------------------- |
+| `↑` / `K`                 | Select cell above      |
+| `↓` / `J`                 | Select cell below      |
+| `Cmd + ↑`                 | Go to first cell       |
+| `Cmd + ↓`                 | Go to last cell        |
+| `Shift + ↑` / `Shift + K` | Extend selection above |
+| `Shift + ↓` / `Shift + J` | Extend selection below |
+
+### Cell Operations
+
+| Shortcut               | Action                  |
+| ---------------------- | ----------------------- |
+| `A`                    | Insert cell above       |
+| `B`                    | Insert cell below       |
+| `X`                    | Cut selected cell(s)    |
+| `C`                    | Copy selected cell(s)   |
+| `V`                    | Paste cell(s) below     |
+| `Shift + V`            | Paste cell(s) above     |
+| `D, D` (press D twice) | Delete selected cell(s) |
+| `Z`                    | Undo cell deletion      |
+| `Shift + M`            | Merge selected cells    |
+| `Cmd + Shift + -`      | Split cell at cursor    |
+
+### Cell Type Conversion
+
+| Shortcut | Action                                               |
+| -------- | ---------------------------------------------------- |
+| `Y`      | Change cell to Code                                  |
+| `M`      | Change cell to Markdown                              |
+| `R`      | Change cell to Raw                                   |
+| `1-6`    | Change to Heading 1-6 (deprecated, use Markdown `#`) |
+
+### Running Cells
+
+| Shortcut         | Action                    |
+| ---------------- | ------------------------- |
+| `Ctrl + Enter`   | Run selected cell(s)      |
+| `Shift + Enter`  | Run cell and select below |
+| `Option + Enter` | Run cell and insert below |
+| `Cmd + S`        | Save notebook             |
+
+### View and Interface
+
+| Shortcut        | Action                           |
+| --------------- | -------------------------------- |
+| `L`             | Toggle line numbers              |
+| `O`             | Toggle cell output               |
+| `Shift + O`     | Toggle output scrolling          |
+| `Space`         | Scroll notebook down             |
+| `Shift + Space` | Scroll notebook up               |
+| `Shift + L`     | Toggle line numbers in all cells |
+
+### Kernel Operations
+
+| Shortcut               | Action           |
+| ---------------------- | ---------------- |
+| `I, I` (press I twice) | Interrupt kernel |
+| `0, 0` (press 0 twice) | Restart kernel   |
+
+### Selection and Search
+
+| Shortcut                   | Action                             |
+| -------------------------- | ---------------------------------- |
+| `Shift + J` or `Shift + ↓` | Select next cell                   |
+| `Shift + K` or `Shift + ↑` | Select previous cell               |
+| `Cmd + F`                  | Find and replace                   |
+| `F`                        | Find and replace (in Command mode) |
+
+### Help and Other
+
+| Shortcut | Action                       |
+| -------- | ---------------------------- |
+| `H`      | Show keyboard shortcuts help |
+| `P`      | Open command palette         |
+| `Esc`    | Close command palette        |
+| `Q`      | Close window                 |
+
+---
+
+## Edit Mode Shortcuts (Press `Enter` first)
+
+### Basic Editing
+
+| Shortcut          | Action                                 |
+| ----------------- | -------------------------------------- |
+| `Tab`             | Code completion or indent              |
+| `Shift + Tab`     | Tooltip (function signature/docstring) |
+| `Cmd + ]`         | Indent                                 |
+| `Cmd + [`         | Dedent                                 |
+| `Cmd + A`         | Select all                             |
+| `Cmd + Z`         | Undo                                   |
+| `Cmd + Shift + Z` | Redo                                   |
+
+### Code Manipulation
+
+| Shortcut                             | Action             |
+| ------------------------------------ | ------------------ |
+| `Cmd + /`                            | Toggle comment     |
+| `Cmd + D`                            | Delete whole line  |
+| `Cmd + ←` / `Fn + ←`                 | Go to cell start   |
+| `Cmd + →` / `Fn + →`                 | Go to cell end     |
+| `Option + ←`                         | Go one word left   |
+| `Option + →`                         | Go one word right  |
+| `Option + Backspace`                 | Delete word before |
+| `Option + Delete` / `Fn + Backspace` | Delete word after  |
+
+### Running Code
+
+| Shortcut          | Action                    |
+| ----------------- | ------------------------- |
+| `Ctrl + Enter`    | Run cell                  |
+| `Shift + Enter`   | Run cell and select below |
+| `Option + Enter`  | Run cell and insert below |
+| `Cmd + Shift + -` | Split cell at cursor      |
+
+### Switching Modes
+
+| Shortcut  | Action             |
+| --------- | ------------------ |
+| `Esc`     | Enter Command mode |
+| `Cmd + M` | Enter Command mode |
+
+---
+
+## JupyterLab-Specific Shortcuts
+
+### Additional JupyterLab Features
+
+| Shortcut          | Action               |
+| ----------------- | -------------------- |
+| `Cmd + B`         | Toggle left sidebar  |
+| `Cmd + Shift + D` | Duplicate line       |
+| `Cmd + Shift + C` | Open command palette |
+| `Cmd + Shift + L` | Toggle line numbers  |
+| `Cmd + Shift + [` | Collapse all cells   |
+| `Cmd + Shift + ]` | Expand all cells     |
+| `Cmd + Shift + P` | Show all commands    |
+
+### Tab Management (JupyterLab)
+
+| Shortcut          | Action              |
+| ----------------- | ------------------- |
+| `Cmd + Shift + [` | Switch to left tab  |
+| `Cmd + Shift + ]` | Switch to right tab |
+| `Cmd + W`         | Close current tab   |
+
+---
+
+## Magic Commands (Type in cell)
+
+### Timing and Profiling
+
+| Command    | Action                                        |
+| ---------- | --------------------------------------------- |
+| `%time`    | Time execution of a single statement          |
+| `%timeit`  | Time repeated execution of a single statement |
+| `%%time`   | Time execution of entire cell                 |
+| `%%timeit` | Time repeated execution of entire cell        |
+| `%prun`    | Profile code with cProfile                    |
+
+### Environment and Variables
+
+| Command  | Action                                 |
+| -------- | -------------------------------------- |
+| `%who`   | List all variables                     |
+| `%whos`  | List all variables with details        |
+| `%reset` | Reset namespace (delete all variables) |
+| `%pwd`   | Print working directory                |
+| `%cd`    | Change directory                       |
+| `%ls`    | List files in directory                |
+
+### Code Execution
+
+| Command                | Action                        |
+| ---------------------- | ----------------------------- |
+| `%run script.py`       | Run Python script             |
+| `%load script.py`      | Load code from file into cell |
+| `%matplotlib inline`   | Display plots inline          |
+| `%matplotlib notebook` | Interactive plots             |
+| `%%writefile file.py`  | Write cell contents to file   |
+
+### Debugging
+
+| Command  | Action                          |
+| -------- | ------------------------------- |
+| `%debug` | Activate debugger               |
+| `%pdb`   | Automatic debugger on exception |
+
+### System Commands
+
+| Command                | Action                              |
+| ---------------------- | ----------------------------------- |
+| `!pip install package` | Run shell command (install package) |
+| `!ls`                  | Run shell command (list files)      |
+| `!!python --version`   | Capture shell command output        |
+
+### Other Useful Magic
+
+| Command                    | Action                     |
+| -------------------------- | -------------------------- |
+| `%lsmagic`                 | List all magic commands    |
+| `%quickref`                | Quick reference            |
+| `%history`                 | Show command history       |
+| `%notebook filename.ipynb` | Export history to notebook |
+
+---
+
+## Markdown Shortcuts (in Markdown cells)
+
+### Headers
+
+```markdown
+# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+```
+
+### Text Formatting
+
+```markdown
+- _italic_
+- **bold**
+- **_bold italic_**
+- ~~strikethrough~~
+- `inline code`
+```
+
+### Lists
+
+```markdown
+- Bullet point
+  - Nested bullet
+
+* Alternative bullet
+
+1. Numbered list
+2. Second item
+   1. Nested numbered
+```
+
+### Links and Images
+
+```markdown
+[Link text](https://example.com) ![Image alt text](image.png)
+```
+
+### Code Blocks
+
+````markdown
+```python
+def hello():
+    print("Hello World")
+```
+````
+
+### Math (LaTeX)
+
+```markdown
+Inline math: $E = mc^2$ Display math: $$\int_0^\infty e^{-x^2} dx$$
+```
+
+---
+
+## Pro Tips
+
+### Quick Tips
+
+- **Double-click** any cell in Command mode to enter Edit mode
+- **Run all cells**: Go to `Cell → Run All` in menu
+- **Clear all outputs**: `Cell → All Output → Clear`
+- **Restart kernel and run all**: `Kernel → Restart & Run All`
+- Press `Shift + Tab` multiple times for expanded documentation
+
+### Productivity Hacks
+
+- Use `??function_name` to see source code
+- Use `!` prefix to run shell commands: `!pip list`
+- Use `%load_ext autoreload` and `%autoreload 2` for automatic module reloading
+- Use `Cmd + Shift + P` for command palette (JupyterLab)
+
+### Common Workflows
+
+```python
+# Quick timing
+%timeit sum(range(1000))
+
+# Display all outputs in a cell (not just last)
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+# Better display for pandas
+import pandas as pd
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', 100)
+
+# Suppress warnings
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+---
+
+## macOS-Specific Key Notes
+
+**Key Mappings:**
+
+- `Cmd` = Command key (⌘)
+- `Option` = Alt/Option key (⌥)
+- `Ctrl` = Control key (⌃)
+- `Shift` = Shift key (⇧)
+- `Fn` = Function key
+
+**Special macOS Navigation:**
+
+- `Fn + ←` = Home
+- `Fn + →` = End
+- `Fn + ↑` = Page Up
+- `Fn + ↓` = Page Down
+- `Fn + Backspace` = Delete (forward delete)
+
+---
+
+## Customizing Shortcuts
+
+In JupyterLab:
+
+1. Go to `Settings → Advanced Settings Editor`
+2. Select `Keyboard Shortcuts`
+3. Add custom shortcuts in the User Preferences panel
+
+In Classic Notebook:
+
+1. Go to `Help → Edit Keyboard Shortcuts`
+2. Customize as needed
+
+---
+
+## Essential Shortcuts Summary (Most Used)
+
+| Action             | Command Mode      | Edit Mode         |
+| ------------------ | ----------------- | ----------------- |
+| Run cell           | `Ctrl + Enter`    | `Ctrl + Enter`    |
+| Run and advance    | `Shift + Enter`   | `Shift + Enter`   |
+| Insert cell above  | `A`               | -                 |
+| Insert cell below  | `B`               | -                 |
+| Select cell above  | `↑` / `K`         | -                 |
+| Select cell below  | `↓` / `J`         | -                 |
+| Delete cell        | `D, D`            | -                 |
+| Switch to Markdown | `M`               | -                 |
+| Switch to Code     | `Y`               | -                 |
+| Enter Edit mode    | `Enter`           | -                 |
+| Enter Command mode | -                 | `Esc`             |
+| Code completion    | -                 | `Tab`             |
+| Show docs          | -                 | `Shift + Tab`     |
+| Save notebook      | `Ctrl + S`        | `Ctrl + S`        |
+| Comment/Uncomment  | -                 | `Cmd + /`         |
+| Toggle sidebar     | `Cmd + B`         | `Cmd + B`         |
+| Command palette    | `Cmd + Shift + P` | `Cmd + Shift + P` |
+
+**Master these shortcuts to 10x your Jupyter productivity!** 🚀
