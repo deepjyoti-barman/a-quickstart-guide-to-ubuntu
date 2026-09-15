@@ -1484,12 +1484,13 @@ compdef eza=ls
 alias grep='rg --color=auto'
 alias diff='diff --color=auto'
 alias df='df -h'
-alias find='fdfind'
+alias fd='fdfind'
 alias f='fdfind'
+alias bat='batcat'
+alias cat='batcat -p'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias bat='batcat'
 
 # =========================================================
 # Navigation
@@ -4613,5 +4614,439 @@ The XAMPP installer is interactive:
 - `phpMyAdmin`: A browser-based database administration tool.
 - `htdocs`: The folder from which local web projects are served.
 - `Port 80`: The default web-server port; conflicts can prevent Apache from starting.
+
+---
+
+### Neovim (`nvim`)
+
+#### Neovim: Overview
+
+Neovim is a modern, extensible terminal text editor based on Vim. It can be used for everything from editing configuration files to full software development.
+
+#### Neovim: Why it's useful
+
+- Edits files directly from the terminal.
+- Fast and keyboard-driven.
+- Provides powerful search, navigation, and editing.
+- Highly customizable through Lua configuration.
+- Works well for programming with plugins and language servers.
+
+#### Neovim: Installation and Verification Commands
+
+```sh
+sudo apt update
+sudo apt install -y neovim
+nvim --version
+```
+
+Open Neovim and run `:checkhealth` to check optional providers and configuration:
+
+```sh
+nvim
+```
+
+#### Neovim: Simple Examples
+
+```sh
+# Opens or creates a file
+nvim file.txt
+
+# Edits your Zsh configuration
+nvim ~/.zshrc
+
+# Opens the current directory
+nvim .
+```
+
+#### Neovim: Essential Keystrokes
+
+| Key        | Action                       |
+| ---------- | ---------------------------- |
+| `i`        | Enter insert mode            |
+| `Esc`      | Return to normal mode        |
+| `:w`       | Save                         |
+| `:q`       | Quit                         |
+| `:wq`      | Save and quit                |
+| `:q!`      | Quit without saving          |
+| `dd`       | Delete the current line      |
+| `yy`       | Copy the current line        |
+| `p`        | Paste after the cursor       |
+| `u`        | Undo                         |
+| `Ctrl + R` | Redo                         |
+| `/text`    | Search for text              |
+| `n`        | Go to the next search result |
+| `gg`       | Go to the top of the file    |
+| `G`        | Go to the bottom of the file |
+| `0`        | Go to the start of the line  |
+| `$`        | Go to the end of the line    |
+
+#### Neovim: Important Concepts
+
+- `Modes`: Neovim has different modes; normal mode is for commands and navigation, while insert mode is for typing.
+- `Configuration`: Your main configuration directory is usually `~/.config/nvim/`.
+- `:checkhealth`: Reports whether optional Neovim features and integrations are correctly configured.
+
+---
+
+### eza (`eza`)
+
+#### eza: Overview
+
+`eza` is a modern replacement for `ls` with improved colors, icons, Git integration, and more readable output.
+
+#### eza: Why it's useful
+
+- Makes directory listings easier to read.
+- Shows file types with colors and optional icons.
+- Can display Git status.
+- Provides more readable formatting than traditional `ls`.
+
+#### eza: Installation and Verification Commands
+
+On Ubuntu, eza's project provides an APT repository:
+
+```sh
+sudo apt update
+sudo apt install -y eza
+eza --version
+```
+
+#### eza: Simple Examples
+
+```sh
+# Lists files
+eza
+
+# Shows a detailed listing
+eza -l
+
+# Includes hidden files
+eza -a
+
+# Shows a detailed listing including hidden files
+eza -la
+
+# Shows Git status
+eza -l --git
+
+# Displays a directory tree
+eza --tree
+
+# Displays file icons; a Nerd Font is recommended
+eza --icons
+```
+
+#### eza: Useful Aliases
+
+```sh
+alias ls='eza'
+alias ll='eza -la'
+alias tree='eza --tree'
+```
+
+#### eza: Essential Keystrokes
+
+`eza` is non-interactive, so it has no essential keystrokes.
+
+#### eza: Important Concepts
+
+- `Icons`: Use a Nerd Font, such as MesloLGS NF, for the best icon display.
+- `Git integration`: `--git` adds Git status information to listings inside repositories.
+- `Aliases`: Add aliases to `~/.zshrc` and run `source ~/.zshrc` to make them available immediately.
+
+---
+
+### fd (`fdfind`)
+
+#### fd: Overview
+
+`fd` is a fast, user-friendly replacement for `find` for locating files and directories.
+
+#### fd: Why it's useful
+
+- Uses simpler syntax than `find`.
+- Searches quickly.
+- Respects `.gitignore` by default.
+- Finds files and directories by name, type, or pattern.
+- Works well with tools such as `fzf` and Neovim.
+
+#### fd: Installation and Verification Commands
+
+On Ubuntu, the package is named `fd-find` and the installed command is usually `fdfind`:
+
+```sh
+sudo apt update
+sudo apt install -y fd-find
+fdfind --version
+```
+
+Optional: create a short `f` alias for `fdfind`:
+
+```sh
+echo "alias f='fdfind'" >> ~/.zshrc
+echo "alias fd='fdfind'" >> ~/.zshrc
+source ~/.zshrc
+f --version
+fd --version
+```
+
+#### fd: Simple Examples
+
+```sh
+# Finds names containing "config"
+fd config
+
+# Finds package.json files
+fd package.json
+
+# Finds directories containing "projects"
+fd -t d projects
+
+# Finds Markdown files
+fd -t f '\.md$'
+
+# Searches from a specific directory
+fd config ~/Documents
+
+# Includes hidden files
+fd -H config
+
+# Includes hidden files and ignores .gitignore rules
+fd -HI config
+```
+
+#### fd: Essential Keystrokes
+
+`fd` is non-interactive, so it has no essential keystrokes.
+
+#### fd: Important Concepts
+
+- `fd vs fdfind`: On Ubuntu, use `fdfind` unless you create the optional `fd` symlink or created an alias.
+- `Regular expressions`: `fd` treats patterns as regular expressions by default.
+- `Hidden and ignored files`: `-H` includes hidden files; `-I` also ignores `.gitignore` rules.
+
+---
+
+### Ripgrep (`rg`)
+
+#### Ripgrep: Overview
+
+`rg`, also called ripgrep, is a fast text-search tool designed for directories and source-code projects.
+
+#### Ripgrep: Why it's useful
+
+- Searches entire projects quickly.
+- Respects `.gitignore` by default.
+- Supports regular expressions.
+- Useful for finding where text, functions, variables, or configuration values are used.
+
+#### Ripgrep: Installation and Verification Commands
+
+```sh
+sudo apt update
+sudo apt install -y ripgrep
+rg --version
+```
+
+#### Ripgrep: Simple Examples
+
+```sh
+# Searches for text in the current directory
+rg "hello"
+
+# Searches for TODO
+rg "TODO"
+
+# Searches a specific directory
+rg "TODO" ~/projects
+
+# Searches only Python files
+rg "import" -t py
+
+# Includes hidden files
+rg -u "secret"
+
+# Includes hidden files and files ignored by Git
+rg -uu "secret"
+
+# Shows filenames containing TODO
+rg -l "TODO"
+
+# Searches case-insensitively
+rg -i "hello"
+```
+
+#### Ripgrep: Essential Keystrokes
+
+`rg` is non-interactive, so it has no essential keystrokes.
+
+#### Ripgrep: Important Concepts
+
+- `Git ignore rules`: By default, ripgrep skips files ignored by `.gitignore`.
+- `-u`, `-uu`, and `-uuu`: `-u` includes hidden files; `-uu` also includes ignored files; `-uuu` additionally searches binary files.
+- `Regular expressions`: Search patterns are regular expressions by default.
+
+---
+
+### lf (`lf`)
+
+#### lf: Overview
+
+`lf` is a terminal-based file manager for navigating directories and managing files with the keyboard.
+
+#### lf: Why it's useful
+
+- Lets you browse directories without repeatedly typing `cd` and `ls`.
+- Supports keyboard-driven copying, moving, renaming, and opening files.
+- Fast and lightweight.
+- Can be configured so your shell changes to the directory you were viewing when you quit.
+
+#### lf: Installation and Verification Commands
+
+```sh
+sudo apt update
+sudo apt install -y lf
+lf -version
+```
+
+Optional: add this function to `~/.zshrc` to make your shell enter the last directory viewed in `lf`:
+
+```sh
+lfcd() {
+  local tmp
+  local dir
+
+  tmp="$(mktemp)"
+  lf -last-dir-path="$tmp" "$@"
+
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    rm -f "$tmp"
+    [ -d "$dir" ] && cd "$dir"
+  fi
+}
+```
+
+Reload Zsh, then use `lfcd`:
+
+```sh
+source ~/.zshrc
+lfcd
+```
+
+#### lf: Simple Examples
+
+```sh
+# Starts lf in the current directory
+lf
+
+# Starts lf in your Downloads folder
+lf ~/Downloads
+
+# Shows lf help
+lf -help
+
+# Shows lf documentation
+lf -doc
+```
+
+#### lf: Essential Keystrokes
+
+| Key                     | Action                                    |
+| ----------------------- | ----------------------------------------- |
+| `j` / `Down`            | Move down                                 |
+| `k` / `Up`              | Move up                                   |
+| `h` / `Left`            | Go to the parent directory                |
+| `l` / `Right` / `Enter` | Open a file or enter a directory          |
+| `q`                     | Quit                                      |
+| `Space`                 | Select or unselect a file                 |
+| `y`                     | Copy the selected file or files           |
+| `d`                     | Cut the selected file or files for moving |
+| `p`                     | Paste copied or cut files                 |
+| `r`                     | Rename the current file                   |
+| `/`                     | Search forward                            |
+| `?`                     | Search backward                           |
+| `:`                     | Enter an `lf` command                     |
+| `f`                     | Find by filename                          |
+| `g`                     | Go to a location/menu                     |
+
+#### lf: Important Concepts
+
+- `Copy vs cut`: `y` copies files; `d` marks files to be moved; `p` performs the copy or move.
+- `Delete`: File deletion is deliberately not assigned to a default key. Configure it only after you understand the deletion command.
+- `Shell wrapper`: Use `lfcd` if you want your shell to change into the last directory you viewed.
+- `Configuration`: lf configuration files are commonly stored under `~/.config/lf/`.
+
+#### lf: Navigation Pattern
+
+```text
+        k / Up
+           ^
+h / Left [you] l / Right
+           v
+        j / Down
+```
+
+Think of it as:
+
+```text
+h = back
+l = enter
+j = down
+k = up
+```
+
+---
+
+### eza, lf, nvim, fd, rg and bat
+
+#### eza, lf, nvim, fd, rg and bat: How These Tools Fit Together
+
+These tools are not really competing with each other. They complement each other.
+
+```text
+                 Your Terminal
+                      |
+        --------------+--------------
+        |             |             |
+      eza            lf           nvim
+    list files    navigate       edit files
+        |             |             |
+        --------------+--------------
+                      |
+              --------+--------
+              |               |
+             fd              rg
+         find files       find text
+              |               |
+              --------+--------
+                      |
+                     bat
+                  read files
+```
+
+#### eza, lf, nvim, fd, rg and bat: Typical Workflow
+
+```bash
+eza -la              # What is here?
+fd package.json      # Where is the file?
+rg "DATABASE_URL"    # Where is this used?
+bat config.py        # Inspect the file
+nvim config.py       # Edit it
+lf                   # Browse/manage files visually
+```
+
+### eza, lf, nvim, fd, rg and bat: Modern Unix Toolkit Mental Model
+
+| Tool   | Think of it as  | Main job       |
+| ------ | --------------- | -------------- |
+| `eza`  | `ls`            | List files     |
+| `bat`  | `cat`           | Read files     |
+| `fd`   | `find`          | Find files     |
+| `rg`   | `grep`          | Find text      |
+| `lf`   | Finder/Explorer | Navigate files |
+| `nvim` | VS Code/editor  | Edit files     |
+
+Once you get comfortable with these six tools, a huge amount of everyday terminal work becomes much faster.
 
 ---
