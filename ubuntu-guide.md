@@ -11,6 +11,8 @@
     - [Update Custom DNS Settings](#update-custom-dns-settings)
     - [GNOME Online Accounts](#gnome-online-accounts)
     - [GNOME Multitasking Settings](#gnome-multitasking-settings)
+    - [Resolve: `chpwd_recent_filehandler` Issue in Zsh](#resolve-chpwd_recent_filehandler-issue-in-zsh)
+    - [Resolve: zsh-autocomplete Startup Error](#resolve-zsh-autocomplete-startup-error)
   - [Ubuntu Keyboard Shortcuts](#ubuntu-keyboard-shortcuts)
   - [Applications](#applications)
     - [1. Google Chrome](#1-google-chrome)
@@ -44,7 +46,7 @@
     - [wl-clipboard](#wl-clipboard-wl-copy-wl-paste)
     - [zsh](#zsh-zsh)
     - [oh-my-zsh](#oh-my-zsh-omz)
-    - [Powerlevel10k](#powerlevel10k-p10k)
+    - [Powerlevel10k and Additional oh-my-zsh Plugins](#powerlevel10k-and-additional-oh-my-zsh-plugins-p10k)
     - [SDKMan](#sdkman-sdk)
     - [Java](#java-java)
     - [Gradle](#gradle-gradle)
@@ -409,6 +411,176 @@ GNOME workspace navigation is interactive:
 - `Workspace`: A virtual desktop for grouping windows.
 - `Hot Corner`: Moving the pointer to a corner opens the overview.
 - `Current workspace only`: Makes application switching less cluttered.
+
+---
+
+### Resolve: `chpwd_recent_filehandler` Issue in Zsh
+
+#### chpwd_recent_filehandler: Root Cause
+
+When opening a Zsh terminal or changing directories, Zsh may display an error such as:
+
+```text
+chpwd_recent_filehandler:29: no such file or directory: /Users/<username>/.local/share/zsh/chpwd-recent-dirs
+```
+
+The `chpwd_recent_filehandler` function, commonly enabled by a Zsh configuration or plugin such as `zsh-autocomplete`, maintains a history of recently visited directories. It runs whenever the working directory changes.
+
+Its history file is expected at:
+
+```text
+~/.local/share/zsh/chpwd-recent-dirs
+```
+
+The error occurs because either the `~/.local/share/zsh` directory or the `chpwd-recent-dirs` file does not exist. This is common after copying a Zsh configuration to a new machine, installing a plugin on a fresh system, or deleting the file manually.
+
+#### chpwd_recent_filehandler: Actual Fix
+
+Create the directory and empty history file that the Zsh hook expects, then restart Zsh:
+
+```sh
+mkdir -p ~/.local/share/zsh
+touch ~/.local/share/zsh/chpwd-recent-dirs
+exec zsh
+```
+
+- `mkdir -p ~/.local/share/zsh` creates the required directory structure if it does not already exist.
+- `touch ~/.local/share/zsh/chpwd-recent-dirs` creates the missing recent-directory history file without overwriting an existing one.
+- `exec zsh` starts a fresh Zsh session so the configuration and plugins reload.
+
+After restarting Zsh, verify the fix by changing directories:
+
+```sh
+cd /tmp
+cd ~
+```
+
+Zsh should now maintain recent-directory history without showing the `chpwd_recent_filehandler` error.
+
+---
+
+### Resolve: zsh-autocomplete Startup Error
+
+#### zsh-autocomplete Startup Error: Issue Details
+
+After installing `zsh-autocomplete`, every new terminal session showed errors like:
+
+```zsh
+autocomplete:_main_complete:old:138: command not found: _autocomplete__history_lines
+autocomplete:_main_complete:new:post:3: command not found: _autocomplete__unambiguous
+```
+
+Running this manually fixed the current shell:
+
+```zsh
+exec zsh
+```
+
+But the same error returned whenever a brand-new terminal window was opened.
+
+#### zsh-autocomplete Startup Error: Root Cause
+
+`zsh-autocomplete` has internal helper completion functions, including:
+
+```zsh
+_autocomplete__history_lines
+_autocomplete__unambiguous
+```
+
+Those helper files live inside:
+
+```zsh
+~/.oh-my-zsh/custom/plugins/zsh-autocomplete/Completions
+```
+
+Oh My Zsh runs `compinit` while loading its main configuration. `compinit` initializes Zsh's command-completion system and creates a completion dump file to cache completion definitions for faster shell startup.
+
+The dump file is usually stored in the user's home directory and has a name similar to:
+
+```zsh
+~/.zcompdump-<hostname>-<zsh-version>
+```
+
+The issue was that the `zsh-autocomplete/Completions` directory was not visible in `fpath` before Oh My Zsh ran `compinit`.
+
+So zsh-autocomplete itself loaded, but its helper completion functions were missing from the completion lookup path. That caused the `command not found` errors.
+
+`exec zsh` temporarily fixed it because the shell restarted after some state had already been refreshed, but it did not fix the startup order permanently.
+
+#### zsh-autocomplete Startup Error: Resolution
+
+The fix is to add the plugin's (`zsh-autocomplete`) nested `Completions` directory to Zsh's function search path (`fpath`) before Oh My Zsh is loaded.
+
+This ensures that `compinit`, which Oh My Zsh runs during startup, can find and register the completion functions provided by `zsh-autocomplete`.
+
+**Step 1:** Add the following configuration near the top of `~/.zshrc`, immediately after defining `ZSH` variable:
+
+```zsh
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH/custom}"
+
+# zsh-autocomplete ships helper completions in a nested Completions directory.
+# Oh My Zsh runs compinit before it sources plugin scripts, so expose these
+# helpers to fpath before OMZ initializes completion.
+if [[ -d "$ZSH_CUSTOM/plugins/zsh-autocomplete/Completions" ]]; then
+  fpath=("$ZSH_CUSTOM/plugins/zsh-autocomplete/Completions" $fpath)
+fi
+```
+
+**Step 2:** `zsh-autocomplete` should not be listed inside the Oh My Zsh `plugins=(...)` array in this setup, because it will loaded separately with an explicit `source` command.
+
+The plugins section should look like this:
+
+```zsh
+plugins=(
+  docker
+  docker-compose
+  extract
+  git
+  sublime
+  web-search
+  z
+  zsh-autosuggestions
+  fast-syntax-highlighting
+)
+```
+
+Notice that `zsh-autocomplete` is intentionally not included there. This matters because loading `zsh-autocomplete` through the Oh My Zsh `plugins=(...)` array does not expose its nested helper directory early enough:
+
+```zsh
+~/.oh-my-zsh/custom/plugins/zsh-autocomplete/Completions
+```
+
+**Step 3:** Load the `zsh-autocomplete` manually after Oh My Zsh:
+
+```zsh
+source "$ZSH/oh-my-zsh.sh"
+
+# Load zsh-autocomplete manually, after OMZ
+source "$ZSH_CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+```
+
+**Step 4:** Clear stale completion caches or dump files so that zsh could rebuild completion metadata with the corrected `fpath`:
+
+```zsh
+rm ~/.zcompdump(N) ~/.zcompdump-*(N) ~/.zcompdump*.zwc(N)
+```
+
+This uses zsh's `(N)` glob qualifier, which means "expand to nothing if there are no matches." That makes the command safe to run even if some cache files do not exist.
+
+**Step 5:** Restart the shell:
+
+```zsh
+exec zsh
+```
+
+#### zsh-autocomplete Startup Error: Short Summary of the Fix
+
+The problem was not that `zsh-autocomplete` was missing. The problem was startup order.
+
+Oh My Zsh initialized completions before plugins's (`zsh-autocomplete`) helper completion directory was available. Adding that directory to `fpath` before Oh My Zsh runs `compinit`, then clearing the stale completion cache, fixed the issue permanently.
+
+---
 
 ## Ubuntu Keyboard Shortcuts
 
@@ -1213,7 +1385,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 # Pager Colorization
 # =========================================================
 
-# This shell snippet configures man to use bat (or Debian/Ubuntu’s batcat) as its pager,
+# This shell snippet configures man to use bat (or Debian/Ubuntu's batcat) as its pager,
 # giving man pages syntax highlighting and cleaner formatting.
 if command -v bat >/dev/null 2>&1; then
   export MANPAGER="col -bx | bat -l man -p"
@@ -2137,7 +2309,7 @@ Oh My Zsh is a framework for managing your Zsh configuration, themes, aliases, a
 
 #### oh-my-zsh: Installation and Verification Commands
 
-Make sure `zsh` is your current active shell first:
+Make sure `zsh` is your current active shell first and then install Oh My Zsh using:
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -2154,6 +2326,58 @@ Update Oh My Zsh:
 ```sh
 omz update
 ```
+
+#### oh-my-zsh: Install Plugins
+
+Install the zsh-autosuggestions plugin:
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+```
+
+Install the zsh-syntax-highlighting plugin:
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+```
+
+Install the fast-syntax-highlighting plugin:
+
+```bash
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
+```
+
+Install the zsh-autocomplete plugin:
+
+```bash
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git "$ZSH_CUSTOM/plugins/zsh-autocomplete"
+```
+
+Note: use either `zsh-syntax-highlighting` or `fast-syntax-highlighting` in the active Oh My Zsh plugins list. Do not enable both at the same time.
+
+#### oh-my-zsh: (Optional) Remove zsh-syntax-highlighting
+
+If `zsh-syntax-highlighting` was installed by cloning it into the Oh My Zsh custom plugins directory, uninstall it with:
+
+```bash
+rm -rf "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+```
+
+Verify that the plugin directory no longer exists:
+
+```bash
+ls "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+```
+
+It should report that the directory does not exist.
+
+You can also check whether it is still configured in `.zshrc`:
+
+```bash
+grep -n "zsh-syntax-highlighting" ~/.zshrc
+```
+
+If this command returns a matching line in `plugins=(...)`, remove that entry from the plugins list.
 
 #### oh-my-zsh: Simple Examples
 
@@ -2184,7 +2408,7 @@ source ~/.zshrc
 
 ---
 
-### Powerlevel10k (`p10k`)
+### Powerlevel10k and Additional oh-my-zsh Plugins (`p10k`)
 
 #### Powerlevel10k: Overview
 
@@ -2396,16 +2620,6 @@ fi
 
 # Go / gonb
 export PATH="$HOME/go/bin:$PATH"
-```
-
-#### Powerlevel10k: `zsh-autocomplete` Fix
-
-```sh
-mkdir -p ~/.local/share/zsh
-touch ~/.local/share/zsh/chpwd-recent-dirs
-exec zsh
-cd /tmp
-cd ~
 ```
 
 ---
