@@ -82,6 +82,7 @@
     - [Papirus Icon Theme](#papirus-icon-theme)
     - [BleachBit](#bleachbit-bleachbit)
     - [XAMPP](#xampp-lampp)
+    - [net-tools](#net-tools-net-tools)
 
 ## Set Up Ubuntu, Resolve Issues and Tweaks
 
@@ -5262,5 +5263,106 @@ lf                   # Browse/manage files visually
 | `nvim` | VS Code/editor  | Edit files     |
 
 Once you get comfortable with these six tools, a huge amount of everyday terminal work becomes much faster.
+
+---
+
+### net-tools (`net-tools`)
+
+#### net-tools: Overview
+
+`net-tools` is a package that provides classic Linux networking utilities, including `netstat`, `ifconfig`, `route`, `arp`, and `nameif`.
+
+It is useful when working with older networking commands or software that depends on `netstat`.
+
+#### net-tools: Why it's useful
+
+- Provides the `netstat` command for viewing network connections and listening ports.
+- Helps diagnose port conflicts and active network services.
+- Includes utilities for viewing network interfaces and routing information.
+- Required by some applications and scripts that still rely on legacy networking tools.
+- Resolves the `netstat: command not found` error when starting XAMPP on Linux.
+
+#### net-tools: Installation and Verification Commands
+
+On Debian, Ubuntu, and other APT-based Linux distributions:
+
+```sh
+sudo apt update
+sudo apt install net-tools
+netstat --version
+```
+
+When starting XAMPP on Linux with:
+
+```sh
+sudo /opt/lampp/lampp start
+```
+
+you may see an error similar to:
+
+```text
+netstat: command not found
+```
+
+This occurs because XAMPP uses `netstat` to check services and ports, but `netstat` is not installed by default on many modern Linux distributions.
+
+Install `net-tools` to resolve the issue:
+
+```sh
+sudo apt install net-tools
+```
+
+Then start XAMPP again:
+
+```sh
+sudo /opt/lampp/lampp start
+```
+
+#### net-tools: Simple Examples
+
+```sh
+# Shows all active network connections and listening ports
+netstat -a
+
+# Shows TCP connections and listening TCP ports
+netstat -at
+
+# Shows UDP connections and listening UDP ports
+netstat -au
+
+# Shows listening ports with their process ID and program name
+sudo netstat -tulpn
+
+# Checks whether Apache is using port 80
+sudo netstat -tulpn | grep :80
+
+# Checks whether MySQL is using port 3306
+sudo netstat -tulpn | grep :3306
+
+# Displays network interface details
+ifconfig
+
+# Displays the system routing table
+route -n
+```
+
+#### net-tools: Essential Keystrokes
+
+`net-tools` commands are non-interactive, so they have no essential keystrokes.
+
+#### net-tools: Important Concepts
+
+- `netstat`: Displays active network connections, listening ports, and routing information.
+- `Listening ports`: Services such as Apache and MySQL listen on specific ports for incoming connections.
+- `-t`: Displays TCP connections.
+- `-u`: Displays UDP connections.
+- `-l`: Displays only listening sockets.
+- `-p`: Displays the process ID and program name associated with a connection or port.
+- `-n`: Displays addresses and port numbers numerically instead of resolving names.
+- `sudo`: Required with `-p` to view process details for all users.
+- `ifconfig`: Displays or configures network interfaces; it is included in `net-tools`.
+- `route`: Displays the network routing table; it is also included in `net-tools`.
+- `net-tools` vs `iproute2`: `net-tools` provides older commands such as `netstat` and `ifconfig`, while modern Linux systems commonly use `ss` and `ip`.
+- `netstat` vs `ss`: `ss` is the modern replacement for `netstat`, but XAMPP may still require `netstat`, making `net-tools` necessary.
 
 ---
