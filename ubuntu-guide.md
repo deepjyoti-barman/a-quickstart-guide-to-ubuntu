@@ -28,6 +28,7 @@
       - [Install WebStorm](#install-webstorm)
       - [Install IntelliJ IDEA](#install-intellij-idea)
       - [Install PyCharm](#install-pycharm)
+      - [Install PHPStorm](#install-phpstorm)
       - [Install Android Studio](#install-android-studio)
     - [11. Android Studio Configuration](#11-android-studio-configuration)
   - [Zsh Environment & Shell Configuration](#zsh-environment--shell-configuration)
@@ -996,6 +997,51 @@ By default, accepting AI inline suggestions may require a different key combinat
 5. Enter your password if prompted.
 6. Launch **Sublime Text** from Applications.
 
+#### Sublime Text: Configuration
+
+Open up 'Sublime Text' -> From the top on the menu bar click on `Preferences` tab -> `Settings` (Shortcut: `Command + ,`)
+
+```json
+{
+  "ignored_packages": ["Vintage"],
+  "color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
+  "theme": "ayu-mirage.sublime-theme",
+  "font_size": 14,
+  "spell_check": true,
+  "dictionary": "Packages/Language - English/en_US.dic",
+  "index_files": true
+}
+```
+
+#### Sublime Text: Necessary Packages
+
+- A File Icon
+- All Autocomplete
+- AutoFileName
+- ayu
+- BracketHighlighter
+- Emmet
+- Package Control
+- SideBarEnhancements
+- SublimeLinter
+- [SublimeLinter](https://packagecontrol.io/search/SublimeLinter)
+- [SublimeLinter-javac](https://packagecontrol.io/packages/SublimeLinter-javac)
+- [SublimeLinter-jshint](https://packagecontrol.io/packages/SublimeLinter-jshint)
+- [Sublime​Linter-tslint](https://packagecontrol.io/packages/SublimeLinter-tslint)
+- [Sublime​Linter-pylint](https://packagecontrol.io/packages/SublimeLinter-pylint)
+- [SublimeLinter-php](https://packagecontrol.io/packages/SublimeLinter-php)
+- [Sublime​Linter-ruby](https://packagecontrol.io/packages/SublimeLinter-ruby)
+- [SublimeLinter-clang](https://packagecontrol.io/packages/SublimeLinter-clang)
+- [SublimeLinter-cpplint](https://packagecontrol.io/packages/SublimeLinter-cpplint)
+- [Sublime​Linter-html-tidy](https://packagecontrol.io/packages/SublimeLinter-html-tidy)
+- [Sublime​Linter-csslint](https://packagecontrol.io/packages/SublimeLinter-csslint)
+- [SublimeLinter-json](https://packagecontrol.io/packages/SublimeLinter-json)
+- [SublimeLinter-shellcheck](https://packagecontrol.io/packages/SublimeLinter-shellcheck)
+- SublimeREPL
+- Terminal
+- Terminus
+- zzz A File Icon zzz
+
 ### 5. Zoom
 
 1. Open **App Center**.
@@ -1175,6 +1221,13 @@ You can usually force the browser to package it as an app:
 2. Click `Install`.
 3. Wait for the installation to complete.
 4. Click `Launch` to open PyCharm.
+
+#### Install PHPStorm
+
+1. Find `PHPStorm` in **JetBrains Toolbox**.
+2. Click `Install`.
+3. Wait for the installation to complete.
+4. Click `Launch` to open PHPStorm.
 
 #### Install Android Studio
 
@@ -3589,6 +3642,141 @@ zed .
 zed file.txt
 ```
 
+#### Zed: Necessary Extensions
+
+Click on 'Zed' on the apple menu bar -> 'Extensions' (`Shift + Command + X`)
+
+- Dockerfile v0.3.0
+- Docker Compose v0.1.0
+- GraphQL v1.0.6 (Optional)
+- Go Snippets v0.1.5
+- HTML v0.3.2
+- Java v6.8.27
+- Java with Eclipse JDTLS v0.2.5
+- JavaScript Snippets v0.1.0
+- LOG v0.0.7
+- Markdown Snippets v0.1.0
+- Material Icon Theme v1.3.1
+- One Dark Pro v0.0.11
+- One Dark Pro Max v0.0.2
+- One Dark Pro Monokai Darker Theme v0.1.1
+- Python Snippets v0.1.3
+- PHP v0.5.3
+- Rainbow CSV v1.1.0
+- SQL v1.1.8
+
+#### Zed: Configuration
+
+Click on 'Zed' on the apple menu bar -> 'Settings' -> 'Open Settings' (`Command + ,`)
+
+```json
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run zed: open default settings from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "buffer_font_family": "Cascadia Mono",
+  "buffer_font_size": 15,
+  "ui_font_size": 17,
+  "icon_theme": "Material Icon Theme",
+  "autosave": "off",
+  "soft_wrap": "editor_width",
+  "auto_indent_on_paste": true,
+  "use_autoclose": true,
+  "project_panel": {
+    "dock": "left"
+  },
+  "terminal": {
+    "dock": "right",
+    "font_family": "MesloLGS NF",
+    "font_size": 15
+  },
+  "theme": {
+    "mode": "system",
+    "light": "One Dark Pro Glass",
+    "dark": "One Dark Pro Glass"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false
+  }
+}
+```
+
+#### Zed: Fix Saying Open After Closing on Linux
+
+On some Linux desktops, Zed may stay running after the window is closed, delay relaunching, or appear as a lingering zombie/defunct process. This is often related to Wayland protocol integration behavior or a startup notification timeout.
+
+This guide covers a simple desktop-entry fix: disabling `StartupNotify` for Zed.
+
+**Problem**
+
+After closing Zed, you may notice symptoms such as:
+
+- Zed does not fully exit.
+- Relaunching Zed is delayed.
+- A leftover process appears in process tools.
+- You need to run `pkill -f zed` before Zed opens normally again.
+
+The issue can happen when the desktop environment keeps waiting for startup notification state that never resolves cleanly.
+
+**Fix**
+
+- First, close Zed completely:
+
+  ```bash
+  pkill -f zed
+  ```
+
+Then update Zed's desktop entry.
+
+- Locate the Zed desktop file:
+
+  ```bash
+  ~/.local/share/applications/zed.desktop
+  ```
+
+  If it is not there, check:
+
+  ```bash
+  /usr/share/applications/zed.desktop
+  ```
+
+- Open the file in your text editor.
+
+- Find this line:
+
+  ```ini
+  StartupNotify=true
+  ```
+
+- Change it to:
+
+  ```ini
+  StartupNotify=false
+  ```
+
+  You can also delete the line entirely.
+
+- Log out and log back in, or restart your application launcher/desktop session.
+
+**Verify**
+
+Open Zed normally from your launcher, then close it.
+
+Check that no Zed process remains:
+
+```bash
+pgrep -af zed
+```
+
+If the command returns no Zed process, the fix worked. You should also be able to relaunch Zed without needing `pkill -f zed`.
+
 #### Zed: Essential Keystrokes
 
 Zed is interactive:
@@ -4811,6 +4999,138 @@ sudo /opt/lampp/lampp stop
 
 # Creates a local web project folder
 sudo mkdir /opt/lampp/htdocs/myproject
+```
+
+#### XAMPP: Enable Error Display in PHP
+
+If PHP executes a file but shows a blank screen even when there is a syntax or runtime error, PHP may be configured to suppress error messages.
+
+**How to Enable Error Display**
+
+- Locate your `php.ini` file.
+
+  You can find the loaded configuration file with:
+
+  ```bash
+  php --ini
+  ```
+
+  Look for the line:
+
+  ```bash
+  Loaded Configuration File: /path/to/php.ini
+  ```
+
+  Example:
+
+  ```bash
+  Configuration File (php.ini) Path: /opt/lampp/etc
+  Loaded Configuration File:         /opt/lampp/etc/php.ini
+  Scan for additional .ini files in: (none)
+  Additional .ini files parsed:      (none)
+  ```
+
+- Open the file `/opt/lampp/etc/php.ini` in a text editor.
+- Enable error reporting and display errors.
+
+  Find these lines and changed them to:
+
+  ```ini
+  error_reporting = E_ALL
+  display_errors = On
+  display_startup_errors = On
+  ```
+
+- Save the file.
+- Restart your PHP/web server so the configuration takes effect.
+- Verify the configuration
+
+  ```bash
+  php -i | grep -E "display_errors|display_startup_errors|error_reporting"
+  ```
+
+  You can also create a temporary PHP file:
+
+  ```php
+  <?php
+    phpinfo();
+  ```
+
+  Open it in your browser and check the values for display_errors and error_reporting.
+
+**File: `php.ini (Line 445-490)`**
+
+```ini
+; Common Values:
+;   E_ALL (Show all errors, warnings and notices including coding standards.)
+;   E_ALL & ~E_NOTICE  (Show all errors, except for notices)
+;   E_ALL & ~E_NOTICE & ~E_STRICT  (Show all errors, except for notices and coding standards warnings.)
+;   E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR  (Show only errors)
+; Default Value: E_ALL
+; Development Value: E_ALL
+; Production Value: E_ALL & ~E_DEPRECATED & ~E_STRICT
+; http://php.net/error-reporting
+error_reporting=E_ALL
+
+; This directive controls whether or not and where PHP will output errors,
+; notices and warnings too. Error output is very useful during development, but
+; it could be very dangerous in production environments. Depending on the code
+; which is triggering the error, sensitive information could potentially leak
+; out of your application such as database usernames and passwords or worse.
+; For production environments, we recommend logging errors rather than
+; sending them to STDOUT.
+; Possible Values:
+;   Off = Do not display any errors
+;   stderr = Display errors to STDERR (affects only CGI/CLI binaries!)
+;   On or stdout = Display errors to STDOUT
+; Default Value: On
+; Development Value: On
+; Production Value: Off
+; http://php.net/display-errors
+display_errors=On
+
+; The display of errors which occur during PHP's startup sequence are handled
+; separately from display_errors. We strongly recommend you set this to 'off'
+; for production servers to avoid leaking configuration details.
+; Default Value: On
+; Development Value: On
+; Production Value: Off
+; http://php.net/display-startup-errors
+display_startup_errors=On
+
+; Besides displaying errors, PHP can also log errors to locations such as a
+; server-specific log, STDERR, or a location specified by the error_log
+; directive found below. While errors should not be displayed on productions
+; servers they should still be monitored and logging is a great way to do that.
+; Default Value: Off
+; Development Value: On
+; Production Value: On
+; http://php.net/log-errors
+log_errors=On
+```
+
+**When Should You Turn `display_errors` Off**
+
+Turn display_errors off in production environments. This prevents PHP errors, warnings, and potentially sensitive information such as file paths, database details, or configuration information from being exposed to website visitors.
+
+Instead, send errors to a log file and inspect the logs when debugging.
+
+**Development Configuration**
+
+```ini
+error_reporting = E_ALL
+display_errors = On
+display_startup_errors = On
+log_errors = On
+```
+
+**Production Configuration**
+
+```ini
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+display_errors = Off
+display_startup_errors = Off
+log_errors = On
 ```
 
 #### XAMPP: Essential Keystrokes
