@@ -31,6 +31,14 @@
       - [Install PHPStorm](#install-phpstorm)
       - [Install Android Studio](#install-android-studio)
     - [11. Android Studio Configuration](#11-android-studio-configuration)
+  - [IntelliJ IDEA: Configuration](#intellij-idea-configuration)
+    - [IntelliJ IDEA: Appearance](#intellij-idea-appearance)
+    - [IntelliJ IDEA: Editor](#intellij-idea-editor)
+    - [IntelliJ IDEA: Terminal](#intellij-idea-terminal)
+    - [IntelliJ IDEA: Disable Showing the Non-Modal Welcome Screen](#intellij-idea-disable-showing-the-non-modal-welcome-screen)
+    - [IntelliJ IDEA: Enable Auto-Import](#intellij-idea-enable-auto-import)
+    - [IntelliJ IDEA: Change Java SDK in a Project](#intellij-idea-change-java-sdk-in-a-project)
+    - [IntelliJ IDEA: Plugins](#intellij-idea-plugins)
   - [Zsh Environment & Shell Configuration](#zsh-environment--shell-configuration)
     - [File: `~/.zshenv`](#file-zshenv)
     - [File: `~/.zshrc`](#file-zshrc)
@@ -1245,6 +1253,7 @@ After installation, JetBrains Toolbox creates application launchers for the inst
 Applications → WebStorm
 Applications → IntelliJ IDEA
 Applications → PyCharm
+Applications -> PhpStorm
 Applications → Android Studio
 ```
 
@@ -1412,6 +1421,111 @@ Android Studio is interactive:
   ```bash
   adb shell dumpsys window | grep -E 'CurrentFocus|FocusedApp'
   ```
+
+## IntelliJ IDEA: Configuration
+
+### IntelliJ IDEA: Appearance
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Appearance`
+
+- `Theme`: `One Dark Darker`
+- Check `Use custom font`
+- `Use custom font`: `Inter Medium`
+- `Size`: `14.0`
+
+### IntelliJ IDEA: Editor
+
+#### Editor Font - First Setup
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `Font`
+
+- `Font`: `Cascadia Mono`
+- `Size`: `16.0`
+- `Line height`: `1.1`
+
+#### Editor Font - Second Setup
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `Font`
+
+- `Font`: `Monospaced`
+- `Size`: `16.0`
+- `Line height`: `1.1`
+
+#### Enable Soft Wrap in Editor
+
+- **Permanent**
+
+  Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `General`
+  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.xml; *.properties; *.env; *.feature`
+
+- **Temporary**
+
+  Open up 'IntelliJ IDEA' -> Open up any project -> Click on `Help` on the menu bar -> `Find Action` -> Search for `soft wrap`
+  - `View | Active Editor: Soft-Wrap`: `OFF` -> `ON`
+
+### IntelliJ IDEA: Terminal
+
+#### Terminal Font
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Tools` -> `Terminal`
+
+- `Font`: `MesloLGS NF`
+- `Fallback`: `JetBrains Mono`
+- `Size`: `15.0`
+- `Line height`: `1.1`
+- `Column width`: `1.0`
+
+#### Enable Soft Wrap in Terminal
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Console`
+
+- Check `Use soft wraps in console`
+
+### IntelliJ IDEA: Disable Showing the Non-Modal Welcome Screen
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Advanced Settings` -> Scroll down until you find the `IDE` sub-section
+
+- Uncheck `Show Home window when the last project is closed`
+
+### IntelliJ IDEA: Enable Auto-Import
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Auto Import`
+
+- Check `Add unambiguous imports on the fly`
+- Check `Optimize imports on the fly`
+
+### IntelliJ IDEA: Change Java SDK in a Project
+
+Open up 'IntelliJ IDEA' -> Click on `File` on the menu bar -> `Project Structure` -> `Project`
+
+- Under `Platform Settings` -> `SDK` -> Delete the old / unused / uninstalled SDK's and then click on the `+` button to add new SDK -> Provide a `Name` and the `JDK home path`
+- Under `Project Settings` -> `Project` -> `SDK`: Click on the dropdown and select any `Detected SDKs`. If the SDK of your choice is not available then select the `+ Add SDK` option and choose any option feasible to you. You may either go for `Download JDK` option or Click on `JDK` and locate a JDK from your local system.
+
+### IntelliJ IDEA: Plugins
+
+Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Plugins`
+
+- Atom Material Icons
+- Better Highlights
+- CodeGlance Pro
+- CodeSnap
+- Create TestNG XML
+- Cucumber for Java
+- ExcelReader
+- Gherkin
+- GitHub Copilot
+- GraphQL
+- HighlightBracketPair (Not required if "Better Highlights" is installed)
+- Maven Helper
+- One Dark Darker
+- One Dark Theme
+- Rainbow Brackets
+- Rainbow CSV
+- SonarQube for IDE
+- Spring Boot Helper (Paid) / Spring Boot Assistant (Free)
+- Spring Initializer (Paid)
+- Subversion
+- VSCode Theme
 
 ## Zsh Environment & Shell Configuration
 
