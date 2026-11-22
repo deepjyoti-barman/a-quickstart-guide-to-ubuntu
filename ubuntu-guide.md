@@ -39,6 +39,23 @@
     - [IntelliJ IDEA: Enable Auto-Import](#intellij-idea-enable-auto-import)
     - [IntelliJ IDEA: Change Java SDK in a Project](#intellij-idea-change-java-sdk-in-a-project)
     - [IntelliJ IDEA: Plugins](#intellij-idea-plugins)
+    - [PyCharm: Configuration](#pycharm-configuration)
+      - [PyCharm: Appearance](#pycharm-appearance)
+      - [PyCharm: Editor](#pycharm-editor)
+      - [PyCharm: Terminal](#pycharm-terminal)
+      - [PyCharm: Disable Showing the Non-Modal Welcome Screen](#pycharm-disable-showing-the-non-modal-welcome-screen)
+      - [PyCharm: Plugins](#pycharm-plugins)
+    - [WebStorm: Configuration](#webstorm-configuration)
+      - [WebStorm: Appearance](#webstorm-appearance)
+      - [WebStorm: Editor](#webstorm-editor)
+      - [WebStorm: Terminal](#webstorm-terminal)
+      - [WebStorm: Plugins](#webstorm-plugins)
+    - [PhpStorm: Configuration](#phpstorm-configuration)
+      - [PhpStorm: Appearance](#phpstorm-appearance)
+      - [PhpStorm: Editor](#phpstorm-editor)
+      - [PhpStorm: Terminal](#phpstorm-terminal)
+      - [PhpStorm: Disable Showing the Non-Modal Welcome Screen](#phpstorm-disable-showing-the-non-modal-welcome-screen)
+      - [PhpStorm: Plugins](#phpstorm-plugins)
   - [Zsh Environment & Shell Configuration](#zsh-environment--shell-configuration)
     - [File: `~/.zshenv`](#file-zshenv)
     - [File: `~/.zshrc`](#file-zshrc)
@@ -1431,11 +1448,11 @@ Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings
 - `Theme`: `One Dark Darker`
 - Check `Use custom font`
 - `Use custom font`: `Inter Medium`
-- `Size`: `14.0`
+- `Size`: `14`
 
 ### IntelliJ IDEA: Editor
 
-#### Editor Font - First Setup
+#### IntelliJ IDEA: Editor Font Setup
 
 Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `Font`
 
@@ -1443,15 +1460,7 @@ Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings
 - `Size`: `16.0`
 - `Line height`: `1.1`
 
-#### Editor Font - Second Setup
-
-Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `Font`
-
-- `Font`: `Monospaced`
-- `Size`: `16.0`
-- `Line height`: `1.1`
-
-#### Enable Soft Wrap in Editor
+#### IntelliJ IDEA: Enable Soft Wrap in Editor
 
 - **Permanent**
 
@@ -1465,7 +1474,7 @@ Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings
 
 ### IntelliJ IDEA: Terminal
 
-#### Terminal Font
+#### IntelliJ IDEA: Terminal Font
 
 Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Tools` -> `Terminal`
 
@@ -1475,7 +1484,7 @@ Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings
 - `Line height`: `1.1`
 - `Column width`: `1.0`
 
-#### Enable Soft Wrap in Terminal
+#### IntelliJ IDEA: Enable Soft Wrap in Terminal
 
 Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Console`
 
@@ -1505,15 +1514,17 @@ Open up 'IntelliJ IDEA' -> Click on `File` on the menu bar -> `Project Structure
 
 Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings` -> `Plugins`
 
+- .ignore
 - Atom Material Icons
 - Better Highlights
+- CSV Editor
 - CodeGlance Pro
 - CodeSnap
 - Create TestNG XML
 - Cucumber for Java
-- ExcelReader
+- ExcelEditor
 - Gherkin
-- GitHub Copilot
+- GitHub Copilot - Your AI Pair Programmer
 - GraphQL
 - HighlightBracketPair (Not required if "Better Highlights" is installed)
 - Maven Helper
@@ -1522,9 +1533,237 @@ Open up 'IntelliJ IDEA' -> Click on `IntelliJ IDEA` on the menu bar -> `Settings
 - Rainbow Brackets
 - Rainbow CSV
 - SonarQube for IDE
-- Spring Boot Helper (Paid) / Spring Boot Assistant (Free)
-- Spring Initializer (Paid)
-- Subversion
+- VSCode Theme
+
+## PyCharm: Configuration
+
+### PyCharm: Appearance
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Appearance`
+
+- `Theme`: `VSCode Light Modern`
+- Check `Use custom font`
+- `Use custom font`: `Inter Medium`
+- `Size`: `14`
+
+### PyCharm: Editor
+
+#### PyCharm: Editor Font Setup
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Editor` -> `Font`
+
+- `Font`: `Cascadia Mono`
+- `Size`: `16.0`
+- `Line height`: `1.1`
+
+#### PyCharm: Enable Soft Wrap in Editor
+
+- **Permanent**
+
+  Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Editor` -> `General`
+  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.properties; *.toml, *.ini; *.env; *.feature`
+
+- **Temporary**
+
+  Open up 'PyCharm' -> Open up any project -> Click on `Help` on the menu bar -> `Find Action` -> Search for `soft wrap`
+  - `View | Active Editor: Soft-Wrap`: `OFF` -> `ON`
+
+### PyCharm: Terminal
+
+#### PyCharm: Terminal Font
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Tools` -> `Terminal`
+
+- `Font`: `MesloLGS NF`
+- `Fallback`: `JetBrains Mono`
+- `Size`: `15.0`
+- `Line height`: `1.1`
+- `Column width`: `1.0`
+
+#### PyCharm: Enable Soft Wrap in Terminal
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Console`
+
+- Check `Use soft wraps in console`
+
+### PyCharm: Disable Showing the Non-Modal Welcome Screen
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Advanced Settings` -> Scroll down until you find the `IDE` sub-section
+
+- Uncheck `Show Home window when the last project is closed`
+
+### PyCharm: Plugins
+
+Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Plugins`
+
+- .ignore
+- Atom Materials Icons
+- Better Highlights
+- CSV Editor
+- CodeGlance Pro
+- CodeSnap
+- ExcelEditor
+- GitHub Copilot - Your AI Pair Programmer
+- GraphQL
+- HighlightBracketPair (Not required if "Better Highlights" is installed)
+- Indent Rainbow
+- One Dark Darker
+- One Dark Theme
+- Rainbow Brackets
+- Rainbow CSV
+- SonarQube for IDE
+- VSCode Theme
+
+## WebStorm: Configuration
+
+### WebStorm: Appearance
+
+Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Appearance`
+
+- `Theme`: `One Dark Darker`
+- Check `Use custom font`
+- `Use custom font`: `Inter Medium`
+- `Size`: `14`
+
+### WebStorm: Editor
+
+Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Editor` -> `Font`
+
+#### WebStorm: Editor Font Setup
+
+- `Font`: `Cascadia Mono`
+- `Size`: `16.0`
+- `Line height`: `1.1`
+
+#### WebStorm: Enable Soft Wrap in Editor
+
+- **Permanent**
+
+  Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Editor` -> `General`
+  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.properties; *.env`
+
+- **Temporary**
+
+  Open up 'WebStorm' -> Open up any project -> Click on `Help` on the menu bar -> `Find Action` -> Search for `soft wrap`
+  - `View | Active Editor: Soft-Wrap`: `OFF` -> `ON`
+
+### WebStorm: Terminal
+
+#### WebStorm: Terminal Font
+
+Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Tools` -> `Terminal`
+
+- `Font`: `MesloLGS NF`
+- `Fallback`: `JetBrains Mono`
+- `Size`: `15.0`
+- `Line height`: `1.1`
+- `Column width`: `1.0`
+
+#### WebStorm: Enable Soft Wrap in Terminal
+
+Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Console`
+
+- Check `Use soft wraps in console`
+
+### WebStorm: Plugins
+
+Open up 'WebStorm' -> Click on `WebStorm` on the menu bar -> `Settings` -> `Plugins`
+
+- .ignore
+- .env files
+- Better Highlights
+- CSV Editor
+- Catppuccin Icons
+- CodeGlance Pro
+- CodeSnap
+- ExcelEditor
+- GitHub Copilot - Your AI Pair Programmer
+- GraphQL
+- HighlightBracketPair (Not required if "Better Highlights" is installed)
+- One Dark Darker
+- One Dark Theme
+- Rainbow Brackets
+- Rainbow CSV
+- SonarQube for IDE
+- VSCode Theme
+
+## PhpStorm: Configuration
+
+### PhpStorm: Appearance
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Appearance`
+
+- `Theme`: `One Dark Darker`
+- Check `Use custom font`
+- `Use custom font`: `Inter Medium`
+- `Size`: `14`
+
+### PhpStorm: Editor
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Editor` -> `Font`
+
+#### PhpStorm: Editor Font Setup
+
+- `Font`: `Cascadia Mono`
+- `Size`: `16.0`
+- `Line height`: `1.1`
+
+#### PhpStorm: Enable Soft Wrap in Editor
+
+- **Permanent**
+
+  Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Editor` -> `General`
+  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.properties; *.env`
+
+- **Temporary**
+
+  Open up 'PhpStorm' -> Open up any project -> Click on `Help` on the menu bar -> `Find Action` -> Search for `soft wrap`
+  - `View | Active Editor: Soft-Wrap`: `OFF` -> `ON`
+
+### PhpStorm: Terminal
+
+#### PhpStorm: Terminal Font
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Tools` -> `Terminal`
+
+- `Font`: `MesloLGS NF`
+- `Fallback`: `JetBrains Mono`
+- `Size`: `15.0`
+- `Line height`: `1.1`
+- `Column width`: `1.0`
+
+#### PhpStorm: Enable Soft Wrap in Terminal
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Editor` -> `General` -> `Console`
+
+- Check `Use soft wraps in console`
+
+### PhpStorm: Disable Showing the Non-Modal Welcome Screen
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Advanced Settings` -> Scroll down until you find the `IDE` sub-section
+
+- Uncheck `Show Home window when the last project is closed`
+
+### PhpStorm: Plugins
+
+Open up 'PhpStorm' -> Click on `PhpStorm` on the menu bar -> `Settings` -> `Plugins`
+
+- .ignore
+- .env files
+- Better Highlights
+- CSV Editor
+- Catppuccin Icons
+- CodeGlance Pro
+- CodeSnap
+- ExcelEditor
+- GitHub Copilot - Your AI Pair Programmer
+- GraphQL
+- HighlightBracketPair (Not required if "Better Highlights" is installed)
+- One Dark Darker
+- One Dark Theme
+- Rainbow Brackets
+- Rainbow CSV
+- SonarQube for IDE
 - VSCode Theme
 
 ## Zsh Environment & Shell Configuration
