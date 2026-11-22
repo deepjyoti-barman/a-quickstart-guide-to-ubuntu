@@ -1563,7 +1563,7 @@ Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Editor
 - **Permanent**
 
   Open up 'PyCharm' -> Click on `PyCharm` on the menu bar -> `Settings` -> `Editor` -> `General`
-  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.properties; *.toml, *.ini; *.env; *.feature`
+  - `Soft Wraps` -> `Soft-wrap these files`: `*.md; *.txt; *.json; *.yaml; *.yml; *.properties; *.toml; *.ini; *.env; *.feature`
 
 - **Temporary**
 
